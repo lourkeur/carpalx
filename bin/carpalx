@@ -11,7 +11,7 @@ carpalx - given text input, determine optimal keyboard mapping to minimize typin
   # all configuration read from etc/carpalx.conf
   carpalx -keyboard_input keyboard.conf -keyboard_output keyboard-optimized.conf
           -corpus corpus/words.txt
-          -action optimize
+          -action loadkeyboard,loadtriads,optimize
           -conf etc/carpalx.conf
           [-debug]
 
@@ -46,7 +46,7 @@ where SCRIPT_BIN is the location of the carpalx script. If the name of
 the configuration file is not passed via -conf, then SCRIPT_NAME.conf
 is tried where SCRIPT_NAME is the name of the script. For example,
 
-  > cd carpalx-0.10
+  > cd carpalx-0.11
   > bin/carpalx
 
 will attempt to find carpalx.conf in the above paths.
@@ -85,6 +85,16 @@ the main configuration file using <<include>>
 
 Packaged and versioned code.
 
+=item * 0.11
+
+Adjusted typing model to include weights for base, effort and stroke components.
+
+Improved clarity of effort reports.
+
+Improved consistency in configuration file.
+
+Added fonts/
+
 =back
 
 =head1 BUGS
@@ -107,7 +117,7 @@ http://mkweb.bcgsc.ca
 
 ################################################################
 #
-# Copyright 2002-2008 Martin Krzywinski <martink@bcgsc.ca> http://mkweb.bcgsc.ca
+# Copyright 2002-2009 Martin Krzywinski <martink@bcgsc.ca> http://mkweb.bcgsc.ca
 #
 # This file is part of the Genome Sciences Centre Perl code base.
 #
@@ -135,7 +145,7 @@ http://mkweb.bcgsc.ca
 # | (_| (_| | |  | |_) | (_| | |/ . \
 #  \___\__,_|_|  | .__/ \__,_|_/_/ \_\
 #                | |
-#                |_| v0.10
+#                |_| v0.11
 #
 # carpalX - keyboard layout optimizer - save your carpals
 #
@@ -163,7 +173,7 @@ http://mkweb.bcgsc.ca
 
 ################################################################
 #     Martin Krzywinski <martink@bcgsc.ca> http://mkweb.bcgsc.ca
-#                                                      2004-2008
+#                                                      2004-2009
 ################################################################
 
 use strict;
@@ -245,6 +255,10 @@ while(my $action = shift(@actions)) {
     printdebug(1,"drawing input keyboard");
     draw_keyboard($keyboard,"$CONF{pngfile_keyboard_input}",{title=>"$CONF{keyboard_input} layout"});
     printkeyboard($keyboard);
+  } elsif ($action =~ /drawoutputkeyboard/) {
+    printdebug(1,"drawing output keyboard");
+    draw_keyboard($keyboard,"$CONF{pngfile_keyboard_output}",{title=>"Optimized layout, runid $CONF{runid}"});
+    printkeyboard($keyboard);
   } elsif ($action =~ /reporteffort(.*)/i) {
     # calculate the canonical effort associated with the original
     # keyboard layout - the layout will be altered to try to minimize this
@@ -287,111 +301,151 @@ sub report_keyboard_effort {
   my %effort;
   $effort{all}       = calculate_effort($keytriads,$keyboard);
   my %CONF_prev      = dclone(\%CONF);
+
+  # recall triad effort is 
+  #
+  # $kb * $k1*$be1 * ( 1 + $k2*$be2 * ( 1 + $k3*$be3 ) ) + 
+  # $kp * $k1*$pe1 * ( 1 + $k2*$pe2 * ( 1 + $k3*$pe3 ) ) + 
+  # $ks * $s
+  #
+  # be1,be2,be3 baseline efforts for first, second and third key in triad   
+  # be1,be2,be3 penalty efforts for first, second and third key in triad   
+  # s stroke path
+
   {
-    local $CONF{effort_model}{k_param}{k4}       = 0;
+    # baseline effort
+    # kp=ks=0
+    local $CONF{effort_model}{k_param}{kp}                             = 0;
+    local $CONF{effort_model}{k_param}{ks}                             = 0;
     my $keyboard_new   = create_keyboard($CONF{keyboard_input});
-    $effort{nopath}    = calculate_effort($keytriads,$keyboard_new);
+    $effort{base}    = calculate_effort($keytriads,$keyboard_new);
   }
   {
-    local $CONF{effort_model}{k_param}{k4}                             = 0;
+    # penalty effort
+    # kb=ks=0
+    local $CONF{effort_model}{k_param}{kb}                             = 0;
+    local $CONF{effort_model}{k_param}{ks}                             = 0;
+    my $keyboard_new = create_keyboard($CONF{keyboard_input});
+    $effort{penalty}= calculate_effort($keytriads,$keyboard_new);
+  }
+  {
+    # stroke effort
+    # kb=kp=0
+    local $CONF{effort_model}{k_param}{kb}                             = 0;
+    local $CONF{effort_model}{k_param}{kp}                             = 0;
+    my $keyboard_new = create_keyboard($CONF{keyboard_input});
+    $effort{path}= calculate_effort($keytriads,$keyboard_new);
+  }
+  {
+    # hand penalty only
+    local $CONF{effort_model}{k_param}{kb}                             = 0;
+    local $CONF{effort_model}{k_param}{ks}                             = 0;
+    local $CONF{effort_model}{weight_param}{penalties}{default}        = 0;
+    local $CONF{effort_model}{weight_param}{penalties}{weight}{row}    = 0;
+    local $CONF{effort_model}{weight_param}{penalties}{weight}{finger} = 0;
+    my $keyboard_new = create_keyboard($CONF{keyboard_input});
+    $effort{penalty_hand}= calculate_effort($keytriads,$keyboard_new);
+  }
+  {
+    # row penalty only
+    local $CONF{effort_model}{k_param}{kb}                             = 0;
+    local $CONF{effort_model}{k_param}{ks}                             = 0;
+    local $CONF{effort_model}{weight_param}{penalties}{default}        = 0;
+    local $CONF{effort_model}{weight_param}{penalties}{weight}{hand}    = 0;
+    local $CONF{effort_model}{weight_param}{penalties}{weight}{finger} = 0;
+    my $keyboard_new = create_keyboard($CONF{keyboard_input});
+    $effort{penalty_row}= calculate_effort($keytriads,$keyboard_new);
+  }
+  {
+    # finger penalty only
+    local $CONF{effort_model}{k_param}{kb}                             = 0;
+    local $CONF{effort_model}{k_param}{ks}                             = 0;
     local $CONF{effort_model}{weight_param}{penalties}{default}        = 0;
     local $CONF{effort_model}{weight_param}{penalties}{weight}{hand}   = 0;
     local $CONF{effort_model}{weight_param}{penalties}{weight}{row}    = 0;
-    local $CONF{effort_model}{weight_param}{penalties}{weight}{finger} = 0;
     my $keyboard_new = create_keyboard($CONF{keyboard_input});
-    $effort{base123}= calculate_effort($keytriads,$keyboard_new);
+    $effort{penalty_finger}= calculate_effort($keytriads,$keyboard_new);
   }
 
   {
-    local $CONF{effort_model}{k_param}{k4}                             = 0;
-    local $CONF{effort_model}{weight_param}{penalties}{default}        = 0;
-    local $CONF{effort_model}{weight_param}{penalties}{weight}{row}    = 0;
-    local $CONF{effort_model}{weight_param}{penalties}{weight}{finger}    = 0;
-    my $keyboard_new = create_keyboard($CONF{keyboard_input});
-    $effort{base123_hand}= calculate_effort($keytriads,$keyboard_new);
-  }
-
-  {
-    local $CONF{effort_model}{k_param}{k4}                             = 0;
-    local $CONF{effort_model}{weight_param}{penalties}{default}        = 0;
-    local $CONF{effort_model}{weight_param}{penalties}{weight}{finger} = 0;
-    my $keyboard_new = create_keyboard($CONF{keyboard_input});
-    $effort{base123_handrow}= calculate_effort($keytriads,$keyboard_new);
-  }
-
-  {
-    local $CONF{effort_model}{k_param}{k3}                             = 0;
-    local $CONF{effort_model}{k_param}{k4}                             = 0;
-    local $CONF{effort_model}{weight_param}{penalties}{default}        = 0;
-    local $CONF{effort_model}{weight_param}{penalties}{weight}{hand}   = 0;
-    local $CONF{effort_model}{weight_param}{penalties}{weight}{row}    = 0;
-    local $CONF{effort_model}{weight_param}{penalties}{weight}{finger} = 0;
-    my $keyboard_new  = create_keyboard($CONF{keyboard_input});
-    $effort{base12}   = calculate_effort($keytriads,$keyboard_new);
-  }
-  {
+    # one-key effort
     local $CONF{effort_model}{k_param}{k2}                             = 0;
     local $CONF{effort_model}{k_param}{k3}                             = 0;
-    local $CONF{effort_model}{k_param}{k4}                             = 0;
-    local $CONF{effort_model}{weight_param}{penalties}{default}        = 0;
-    local $CONF{effort_model}{weight_param}{penalties}{weight}{hand}   = 0;
-    local $CONF{effort_model}{weight_param}{penalties}{weight}{row}    = 0;
-    local $CONF{effort_model}{weight_param}{penalties}{weight}{finger} = 0;
-    my $keyboard_new  = create_keyboard($CONF{keyboard_input});
-    $effort{base1}    = calculate_effort($keytriads,$keyboard_new);
+    local $CONF{effort_model}{k_param}{ks}                             = 0;
+    my $keyboard_new = create_keyboard($CONF{keyboard_input});
+    $effort{k1}= calculate_effort($keytriads,$keyboard_new);
+  }
+  {
+    # two-key effort 
+    local $CONF{effort_model}{k_param}{k3}                             = 0;
+    local $CONF{effort_model}{k_param}{ks}                             = 0;
+    my $keyboard_new = create_keyboard($CONF{keyboard_input});
+    $effort{k12}= calculate_effort($keytriads,$keyboard_new);
+  }
+  {
+    # three-key effort 
+    local $CONF{effort_model}{k_param}{ks}                             = 0;
+    my $keyboard_new = create_keyboard($CONF{keyboard_input});
+    $effort{k123}= calculate_effort($keytriads,$keyboard_new);
   }
 
   printinfo("Keyboard effort");
   printinfo("-"x60);
 
-  my %efforts = ( k1 => [ $effort{base1},
-			  100*$effort{base1}/$effort{all},
-			  100*$effort{base1}/$effort{all}],
-		  k12 => [ $effort{base12},
-			   100*($effort{base12}-$effort{base1})/$effort{all},
-			   100*$effort{base12}/$effort{all} ],
-		  k123 => [ $effort{base123},
-			    100*($effort{base123}-$effort{base12})/$effort{all},
-			    100*$effort{base123}/$effort{all}],
-		  wh => [ $effort{base123_hand},
-			  100*($effort{base123_hand}-$effort{base123})/$effort{all},
-			  100*$effort{base123_hand}/$effort{all} ],
-		  whr => [ $effort{base123_handrow},
-			   100*($effort{base123_handrow}-$effort{base123_hand})/$effort{all},
-			   100*$effort{base123_handrow}/$effort{all}],
-		  whrf=>[ $effort{nopath},
-			  100*($effort{nopath}-$effort{base123_handrow})/$effort{all},
-			  100*$effort{nopath}/$effort{all}],
-		  k4 => [ $effort{all},
-			  100*($effort{all}-$effort{nopath})/$effort{all},
-			  100*$effort{all}/$effort{all}] );
+  my %efforts = ( k1 => [ $effort{k1},
+			  100*sdiv($effort{k1},$effort{k123}),
+			  100*sdiv($effort{k1},$effort{k123})],
+		  k12 => [ $effort{k12},
+			   100*sdiv($effort{k12}-$effort{k1},$effort{k123}),
+			   100*sdiv($effort{k12},$effort{k123}) ],
+		  k123 => [ $effort{k123},
+			    100*sdiv($effort{k123}-$effort{k12},$effort{k123}),
+			    100*sdiv($effort{k123},$effort{k123})],
+		  base => [ $effort{base},
+			    100*sdiv($effort{base},$effort{all}),
+			    100*sdiv($effort{base},$effort{all}) ],
+		  penalty => [ $effort{penalty},
+			       100*sdiv($effort{penalty},$effort{all}),
+			       100*sdiv($effort{base}+$effort{penalty},$effort{penalty}) ],
+		  penalty_hand => [ $effort{penalty_hand},
+			       100*sdiv($effort{penalty_hand},$effort{penalty}),
+			       100*sdiv($effort{penalty_hand},$effort{penalty}) ],
+		  penalty_row => [ $effort{penalty_row},
+			       100*sdiv($effort{penalty_row},$effort{penalty}),
+			       100*sdiv($effort{penalty_hand}+$effort{penalty_row},$effort{penalty}) ],
+		  penalty_finger => [ $effort{penalty_finger},
+			       100*sdiv($effort{penalty_finger},$effort{penalty}),
+			       100*sdiv($effort{penalty_hand}+$effort{penalty_row}+$effort{penalty_finger},$effort{penalty}) ],
+		  path => [ $effort{path},
+			    100*sdiv($effort{path},$effort{all}),
+			    100*sdiv($effort{base}+$effort{penalty}+$effort{path},$effort{all}) ],
+		  all => [ $effort{all},
+			    100*sdiv($effort{all},$effort{all}),
+			    100*sdiv($effort{all},$effort{all}) ],
+		);
 
-  $efforts{k} = [ $efforts{k123}[0],
-		  $efforts{k123}[2],
-		  $efforts{k123}[2] ];
-  $efforts{w} = [ $efforts{whrf}[0]-$efforts{k123}[0],
-		  $efforts{whrf}[2]-$efforts{k123}[2],
-		  $efforts{whrf}[2] ];
-  $efforts{path} = [ $efforts{k4}[0]-$efforts{whrf}[0],
-		     $efforts{k4}[2]-$efforts{whrf}[2],
-		     $efforts{k4}[2] ];
-
-  printinfo(sprintf("%-20s %8.3f %4.1f %5.1f","k1",
+  printinfo(sprintf("%-20s %8.3f %5.1f %5.1f","k1",
 		    @{$efforts{k1}}));
-  printinfo(sprintf("%-20s %8.3f %4.1f %5.1f","k1,k2",
+  printinfo(sprintf("%-20s %8.3f %5.1f %5.1f","k1,k2",
 		    @{$efforts{k12}}));
-  printinfo(sprintf("%-20s %8.3f %4.1f %5.1f","k1,k2,k3",
+  printinfo(sprintf("%-20s %8.3f %5.1f %5.1f","k1,k2,k3",
 		    @{$efforts{k123}}));
-  printinfo(sprintf("%-20s %8.3f %4.1f %5.1f","k1,k2,k3,w(h)",
-		    @{$efforts{wh}}));
-  printinfo(sprintf("%-20s %8.3f %4.1f %5.1f","k1,k2,k3,w(h,r)",
-		    @{$efforts{whr}}));
-  printinfo(sprintf("%-20s %8.3f %4.1f %5.1f","k1,k2,k3,w(h,r,f)",
-		    @{$efforts{whrf}}));
-  printinfo(sprintf("%-20s %8.3f %4.1f %5.1f","k1,k2,k3,w(h,r,f),k4",
-		    @{$efforts{k4}}));
+  printinfo(sprintf("%-20s %8.3f %5.1f %5.1f","b",
+		    @{$efforts{base}}));
+  printinfo(sprintf("%-20s %8.3f %5.1f %5.1f","p",
+		    @{$efforts{penalty}}));
+  printinfo(sprintf("%-20s %8.3f %5.1f %5.1f","ph",
+		    @{$efforts{penalty_hand}}));
+  printinfo(sprintf("%-20s %8.3f %5.1f %5.1f","pr",
+		    @{$efforts{penalty_row}}));
+  printinfo(sprintf("%-20s %8.3f %5.1f %5.1f","pf",
+		    @{$efforts{penalty_finger}}));
+  printinfo(sprintf("%-20s %8.3f %5.1f %5.1f","s",
+		    @{$efforts{path}}));
+  printinfo(sprintf("%-20s %8.3f %5.1f %5.1f","all",
+		    @{$efforts{all}}));
   printinfo();
-  for my $var (qw(k1 k12 k123 wh whr whrf k4 k w path)) {
+  for my $var (qw(k1 k12 k123 base penalty penalty_hand penalty_row penalty_finger path all)) {
     printinfo(sprintf("#data effort_%s=>[%.3f,%.3f,%.3f],",
 		      $var,
 		      @{$efforts{$var}}));
@@ -470,6 +524,11 @@ sub report_keyboard_effort {
   histogram($stats->{charfreq},"corpus character frequency","character_frequency","value");
 }
 
+sub sdiv {
+  my ($x,$y) = @_;
+  return $y ? $x/$y : 0;
+}
+
 sub histogram {
   my $table = shift;
   my $title = shift;
@@ -540,7 +599,7 @@ sub report_triads {
   my $nc = 0;
   for my $triad (sort {$keytriads->{$b} <=> $keytriads->{$a}} keys %$keytriads) {
     $nc += $keytriads->{$triad};
-    my $effort = $keyboard ? calculate_triad_effort($triad,$keyboard,@{$CONF{effort_model}{k_param}}{qw(k1 k2 k3 k4)}) : "na";
+    my $effort = $keyboard ? calculate_triad_effort($triad,$keyboard,@{$CONF{effort_model}{k_param}}{qw(k1 k2 k3 kb kp ks)}) : "na";
     printinfo("triad",$triad,$keytriads->{$triad},$keytriads->{$triad}/$n,$nc/$n,"effort",$effort);
   }
 }
@@ -667,6 +726,7 @@ sub optimize_keyboard {
     $swap_num      += int(rand($swap_range+1)) if $swap_range;
     if($CONF{annealing}{onestep}) {
       $keyboardnew     = _swap_keys($keyboard_original,$reloc_list,$swap_num);
+      $effort          = calculate_effort($keytriads,$keyboard_original);
       my $digest = keyboard_digest($keyboardnew);
       if($seen_digests{$digest}) {
 	# already seen this layout - fetch next layout
@@ -676,7 +736,6 @@ sub optimize_keyboard {
     } else {
       $keyboardnew     = _swap_keys($keyboard,$reloc_list,$swap_num);
     }
-    printkeyboard($keyboardnew);
     my $effortnew       = calculate_effort($keytriads,$keyboardnew);
     my $deffort         = $effortnew - $effort;
     my %report;
@@ -743,9 +802,33 @@ sub optimize_keyboard {
       $make_draw = 1 if ! defined $last_reported_effort || $effortnew > $last_reported_effort;
     }
 
+    my $stdout_report;
+    if($CONF{stdout_filter} eq "all") {
+      $stdout_report = 1;
+    } elsif ($CONF{stdout_filter} eq "update") {
+      $stdout_report = 1 if $report{move} =~ /accept/;
+    } elsif ($CONF{stdout_filter} eq "lower") {
+      $stdout_report = 1 if $deffort < 0;
+    } elsif ($CONF{stdout_filter} eq "higher") {
+      $stdout_report = 1 if $deffort > 0;
+    } elsif ($CONF{stdout_filter} eq "lower_monotonic") {
+      $stdout_report = 1 if ! defined $last_reported_effort || $effortnew < $last_reported_effort;
+    } elsif ($CONF{stdout_filter} eq "higher_monotonic") {
+      $stdout_report = 1 if ! defined $last_reported_effort || $effortnew > $last_reported_effort;
+    }
+
     $report{move} .= "/draw" if $make_draw;
 
     my $parameters = {t=>$t,iter=>$iter,update_count=>$update_count,effort=>$effortnew,deffort=>$deffort};
+
+    my $elapsed = tv_interval($time);
+
+    # output to STDOUT is always lower monotonic
+    if($stdout_report) {
+      printkeyboard($keyboardnew);
+      printf ("iter %6d effort %8.6f -> %8.6f d %10.8f p %10.8f t %10.8f %s cpu %s\n",
+	      $iter,@report{qw(effort neweffort deffort p t move)},$elapsed);
+    }
 
     if($make_report && not $update_count % $CONF{report_period}) {
       report_keyboard($keyboard,$CONF{keyboard_output},$parameters);
@@ -756,10 +839,6 @@ sub optimize_keyboard {
       draw_keyboard($keyboard,"$CONF{pngfile_keyboard_output}",$parameters);
       $last_reported_effort = $effortnew;
     }
-
-    my $elapsed = tv_interval($time);
-    printf ("iter %6d effort %8.6f -> %8.6f d %10.8f p %10.8f t %10.8f %s cpu %s\n",
-	    $iter,@report{qw(effort neweffort deffort p t move)},$elapsed);
   }
   return $keyboard;
 }
@@ -912,7 +991,7 @@ sub calculate_effort {
   die "triads not defined" unless $keytriads;
   my $totaleffort = 0;
   my $contributing_triads = 0;
-  my @k = @{$CONF{effort_model}{k_param}}{qw(k1 k2 k3 k4)};
+  my @k = @{$CONF{effort_model}{k_param}}{qw(k1 k2 k3 kb kp ks)};
   foreach my $triad (keys %$keytriads) {
     my $triad_effort = calculate_triad_effort($triad,$keyboard,@k);
     my $num_triads   = $keytriads->{$triad};
@@ -928,7 +1007,7 @@ sub calculate_effort {
   my $effortlookup = {};
 
   sub calculate_triad_effort {
-    my ($triad,$keyboard,$k1,$k2,$k3,$k4) = @_;
+    my ($triad,$keyboard,$k1,$k2,$k3,$kb,$kp,$ks) = @_;
 
     my $leaf = $keyboard->{map};
     # characters of the triad
@@ -940,17 +1019,18 @@ sub calculate_effort {
       #
     }
     # keyboard effort of each character
-    my ($e1,$e2,$e3)       = ($leaf->{$c1}{effort},$leaf->{$c2}{effort},$leaf->{$c3}{effort});
+    my ($be1,$be2,$be3)    = ($leaf->{$c1}{effort}{base},$leaf->{$c2}{effort}{base},$leaf->{$c3}{effort}{base});
+    my ($pe1,$pe2,$pe3)    = ($leaf->{$c1}{effort}{penalty},$leaf->{$c2}{effort}{penalty},$leaf->{$c3}{effort}{penalty});
     # finger of each character
     my ($f1,$f2,$f3)       = ($leaf->{$c1}{finger},$leaf->{$c2}{finger},$leaf->{$c3}{finger});
     # row of each character
     my ($row1,$row2,$row3) = ($leaf->{$c1}{row},$leaf->{$c2}{row},$leaf->{$c3}{row});
     # hand of each character 
     my ($h1,$h2,$h3)       = ($leaf->{$c1}{hand},$leaf->{$c2}{hand},$leaf->{$c3}{hand});
-    # effort based on keyboard effort (not dependent on position or hand)
-    my $triad_effort       = $k1*$e1 * ( 1 + $e2*$k2 * ( 1 + $k3*$e3 ) );
+    # total triad effort is the sum of base effort product (finger distance) and penalty effort;
+    my $triad_effort       = $kb * $k1*$be1 * ( 1 + $k2*$be2 * ( 1 + $k3*$be3 ) ) + $kp * $k1*$pe1 * ( 1 + $k2*$pe2 * ( 1 + $k3*$pe3 ) );
     
-    if ($k4) {
+    if ($ks) {
 
       # hand, finger, row flags for stroke path
       # see http://mkweb.bcgsc.ca/carpalx/?typing_effort
@@ -1083,18 +1163,14 @@ sub calculate_effort {
     }
 
     my $path_flag = "$hand_flag$row_flag$finger_flag";
-    my $path_cost = 0;
-    if($k4) {
-      $path_cost = $k4 * ( $CONF{effort_model}{weight_param}{penalties}{path_offset} + $CONF{effort_model}{path_cost}{$path_flag});
-    }
+    my $path_cost = $CONF{effort_model}{weight_param}{penalties}{path_offset} + $CONF{effort_model}{path_cost}{$path_flag};
+    $triad_effort += $ks * $path_cost;
 
-    $triad_effort += $path_cost;
-
-    $CONF{debug} && printdebug(1,"triad $c1$c2$c3 keys $c1 $c2 $c3 effort $e1 $e2 $e3 hand $h1 $h2 $h3 row $row1 $row2 $row3 finger $f1 $f2 $f3 ph $hand_flag pr $row_flag pf $finger_flag path $path_flag $path_cost effort $triad_effort");
+    $CONF{debug} && printdebug(1,"triad $c1$c2$c3 keys $c1 $c2 $c3 base_effort $be1 $be2 $be3 penalty_effort $pe1 $pe2 $pe3 hand $h1 $h2 $h3 row $row1 $row2 $row3 finger $f1 $f2 $f3 ph $hand_flag pr $row_flag pf $finger_flag path $path_flag $path_cost effort $triad_effort");
 
   } else {
 
-    $CONF{debug} && printdebug(1,"triad $c1$c2$c3 keys $c1 $c2 $c3 effort $e1 $e2 $e3 row $row1 $row2 $row3 hand $h1 $h2 $h3 ph - pr - pf - path - 0 effort $triad_effort");
+    $CONF{debug} && printdebug(1,"triad $c1$c2$c3 keys $c1 $c2 $c3 base_effort $be1 $be2 $be3 penalty_effort $pe1 $pe2 $pe3 row $row1 $row2 $row3 hand $h1 $h2 $h3 ph - pr - pf - path - 0 effort $triad_effort");
 
   }
   $effortlookup->{$i1}{$i2}{$i3} = $triad_effort;
@@ -1140,7 +1216,7 @@ sub draw_keyboard {
   # get list of all unique costs
 
   my %costs;
-  map {$costs{$_->{effort}}++} map {@{$keyboard->{key}[$_]}} (0..@{$keyboard->{key}}-1);
+  map {$costs{$_->{effort}{total}}++} map {@{$keyboard->{key}[$_]}} (0..@{$keyboard->{key}}-1);
 
   my @colors = split(/[\s,]+/,$imageparams->{color}{effort});
 
@@ -1166,7 +1242,7 @@ sub draw_keyboard {
 		    2*($keysize+$keymargin)+0.25*$keysize,
 		   );
       my $key_x = (1+$col)*$keymargin + $keysize*($col) + $key_x0[$row];
-      my $cost = $keyboard->{key}[$row][$col]->{effort};
+      my $cost = $keyboard->{key}[$row][$col]->{effort}{total};
       my $hand = $keyboard->{key}[$row][$col]->{hand};
       my ($keycolour,$keybordercolour);
       if($imagedetail->{effortcolor}) {
@@ -1239,6 +1315,7 @@ sub draw_keyboard {
     sub rendertext {
 	my %args = @_;
 	$args{text} = uc $args{text} if $imagedetail->{capitalize};
+	#printinfo($args{font});
 	$args{image}->stringFT(@args{qw(color font size angle x y text)});
     }
     
@@ -1636,34 +1713,36 @@ sub create_keyboard {
   my $keyidx=0;
   for my $row_idx (0..@{$keyboard->{key}}-1) {
     for my $col_idx (0..@{$keyboard->{key}[$row_idx]}-1) {
-      
+
       # this is the canonical cost of typing a key defined in the <effort_row> blocks
-      
+
       my $base_effort = $cost->[$row_idx][$col_idx];
-      my $finger     = $keyboard->{key}[$row_idx][$col_idx]{finger};
-      my $hand       = $keyboard->{key}[$row_idx][$col_idx]{hand};
-      my $row        = $row_idx;
-      
+      my $finger      = $keyboard->{key}[$row_idx][$col_idx]{finger};
+      my $hand        = $keyboard->{key}[$row_idx][$col_idx]{hand};
+      my $row         = $row_idx;
+
       $keyboard->{key}[$row_idx][$col_idx]{idx} = $keyidx;
-      
+
       die "create_keyboard - there is a key defined at row,col $row_idx,$col_idx but no associated effort in the effort file" unless defined $base_effort;
       die "create_keyboard - there is a key defined at row,col $row_idx,$col_idx but no finger assignment" unless defined $finger;
       die "create_keyboard - there is a key defined at row,col $row_idx,$col_idx but no hand assignment" unless defined $hand;
-      
+
       my $hand_penalty   = $CONF{effort_model}{weight_param}{penalties}{hand}{ $hand ? "right" : "left" };
       my $finger_penalty = $finger < 5 ? 
 	(split(/[,\s]+/,$CONF{effort_model}{weight_param}{penalties}{finger}{left}))[$finger] : 
 	  (split(/[,\s]+/,$CONF{effort_model}{weight_param}{penalties}{finger}{right}))[$finger-5];
       my $row_penalty    = $CONF{effort_model}{weight_param}{penalties}{row}{$row};
-      
-      my $total_penalty  = 
+
+      my ($penalty_effort,$total_effort);
+
+      my $penalty_effort  = 
 	$CONF{effort_model}{weight_param}{penalties}{default} + 
 	  $CONF{effort_model}{weight_param}{penalties}{weight}{hand}*$hand_penalty +
 	    $CONF{effort_model}{weight_param}{penalties}{weight}{row}*$row_penalty +
 	      $CONF{effort_model}{weight_param}{penalties}{weight}{finger}*$finger_penalty;
-      
-      my $total_effort  = $base_effort + $total_penalty;
-	  
+
+      $total_effort = $CONF{effort_model}{k_param}{kb} * $base_effort + $CONF{effort_model}{k_param}{kp} * $penalty_effort;
+
       for my $case (0,1) {
 	$CONF{debug} && printdebug(1,
 				   "create_keyboard","effortassign",
@@ -1677,14 +1756,17 @@ sub create_keyboard {
 				   "hand_penalty",$CONF{effort_model}{weight_param}{penalties}{weight}{hand},$hand_penalty,
 				   "row_penalty",$CONF{effort_model}{weight_param}{penalties}{weight}{row},$row_penalty,
 				   "finger_penalty",$CONF{effort_model}{weight_param}{penalties}{weight}{finger},$finger_penalty,
-				   "total_penalty",$total_penalty,
+				   "total_penalty",$penalty_effort,
 				   "total_effort",$total_effort);
       }
       
-      $keyboard->{key}[$row_idx][$col_idx]{effort} = $total_effort;
+      $keyboard->{key}[$row_idx][$col_idx]{effort}{total}   = $total_effort;
+      $keyboard->{key}[$row_idx][$col_idx]{effort}{base}    = $base_effort;
+      $keyboard->{key}[$row_idx][$col_idx]{effort}{penalty} = $penalty_effort;
       
-      $keyboard->{map}{ $keyboard->{key}[$row_idx][$col_idx]{"uc"} }{effort} = $total_effort;
-      $keyboard->{map}{ $keyboard->{key}[$row_idx][$col_idx]{"lc"} }{effort} = $total_effort;
+      $keyboard->{map}{ $keyboard->{key}[$row_idx][$col_idx]{"uc"} }{effort}{total} = $total_effort;
+      $keyboard->{map}{ $keyboard->{key}[$row_idx][$col_idx]{"lc"} }{effort}{base} = $base_effort;
+      $keyboard->{map}{ $keyboard->{key}[$row_idx][$col_idx]{"lc"} }{effort}{penalty} = $penalty_effort;
       $keyboard->{map}{ $keyboard->{key}[$row_idx][$col_idx]{"uc"} }{idx}    = $keyidx;
       $keyboard->{map}{ $keyboard->{key}[$row_idx][$col_idx]{"lc"} }{idx}    = $keyidx;
       
@@ -1703,7 +1785,14 @@ sub create_keyboard {
 ################################################################
 
 sub validateconfiguration {
-
+  #printinfo($CONF{keyboard_output});
+  my $rootdir = dirname($FindBin::RealBin);
+  for my $type (qw(keyboard_output pngfile_keyboard_input pngfile_keyboard_output font fontc)) {
+    if($CONF{$type} !~ /^\//) {
+      $CONF{$type} = sprintf("%s/%s",$rootdir,$CONF{$type});
+    }
+    #printinfo($CONF{$type});
+  }
 }
 
 sub populateconfiguration {

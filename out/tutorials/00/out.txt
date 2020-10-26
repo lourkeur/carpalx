@@ -6,748 +6,760 @@ z x c v b n m , . /           Z X C V B N M < > ?
 ------------------------------------------------------------
 Keyboard effort
 ------------------------------------------------------------
-k1                      1.572 17.2  17.2
-k1,k2                   2.562 10.9  28.1
-k1,k2,k3                2.956  4.3  32.4
-k1,k2,k3,w(h)           2.956  0.0  32.4
-k1,k2,k3,w(h,r)         4.260 14.3  46.7
-k1,k2,k3,w(h,r,f)       6.367 23.1  69.8
-k1,k2,k3,w(h,r,f),k4    9.117 30.2 100.0
+k1                      1.229  61.9  61.9
+k1,k2                   1.804  29.0  90.9
+k1,k2,k3                1.984   9.1 100.0
+b                       1.003  33.8  33.8
+p                       0.982  33.1 202.1
+ph                      0.000   0.0   0.0
+pr                      0.397  40.4  40.4
+pf                      0.409  41.6  82.1
+s                       0.978  33.0 100.0
+all                     2.962 100.0 100.0
 
-#data effort_k1=>[1.572,17.244,17.244],
-#data effort_k12=>[2.562,10.857,28.101],
-#data effort_k123=>[2.956,4.322,32.423],
-#data effort_wh=>[2.956,0.000,32.423],
-#data effort_whr=>[4.260,14.308,46.731],
-#data effort_whrf=>[6.367,23.109,69.840],
-#data effort_k4=>[9.117,30.160,100.000],
-#data effort_k=>[2.956,32.423,32.423],
-#data effort_w=>[3.411,37.417,69.840],
-#data effort_path=>[2.750,30.160,100.000],
+#data effort_k1=>[1.229,61.926,61.926],
+#data effort_k12=>[1.804,29.007,90.933],
+#data effort_k123=>[1.984,9.067,100.000],
+#data effort_base=>[1.003,33.842,33.842],
+#data effort_penalty=>[0.982,33.146,202.102],
+#data effort_penalty_hand=>[0.000,0.000,0.000],
+#data effort_penalty_row=>[0.397,40.431,40.431],
+#data effort_penalty_finger=>[0.409,41.627,82.058],
+#data effort_path=>[0.978,33.012,100.000],
+#data effort_all=>[2.962,100.000,100.000],
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-q w e r t y u i z p [ ] \     Q W E R T Y U I Z P { } |
-a s d f g h j k l ; '         A S D F G H J K L : "
-o x c m b n v , . /           O X C M B N V < > ?
+q z e r a y u i o p [ ] \     Q Z E R A Y U I O P { } |
+t s d f g h j k l ; '         T S D F G H J K L : "
+w x c v b n m , . /           W X C V B N M < > ?
 ------------------------------------------------------------
-iter      1 effort 1.572086 -> 4.797268 d 3.22518179 p 0.70016608 t 9.04837418 worse/accept/report/draw cpu 0.089803
+iter      1 effort 1.984386 -> 2.324625 d 0.34023941 p 0.96309592 t 9.04837418 worse/accept/report cpu 0.046413
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-q w e r t y c h z p [ ] \     Q W E R T Y C H Z P { } |
-a s d f g i j k l ; '         A S D F G I J K L : "
-o x u m b n v , . /           O X U M B N V < > ?
+q z e r a y u d o p [ ] \     Q Z E R A Y U D O P { } |
+t s i f g h j k l ; '         T S I F G H J K L : "
+w x b v c n m , . /           W X B V C N M < > ?
 ------------------------------------------------------------
-iter      2 effort 4.797268 -> 6.279252 d 1.48198393 p 0.83442708 t 8.18730753 worse/accept cpu 0.045063
+iter      2 effort 2.324625 -> 2.375203 d 0.05057732 p 0.99384151 t 8.18730753 worse/reject/report cpu 0.046744
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-m w a r t y c h z p [ ] \     M W A R T Y C H Z P { } |
-e s d f g i j k l ; '         E S D F G I J K L : "
-o x u q b n v , . /           O X U Q B N V < > ?
+q z e r a y u i o t [ ] \     Q Z E R A Y U I O T { } |
+p s d f g h j k l ; '         P S D F G H J K L : "
+w x c v b n m , . /           W X C V B N M < > ?
 ------------------------------------------------------------
-iter      3 effort 6.279252 -> 7.390687 d 1.11143456 p 0.86068390 t 7.40818221 worse/accept cpu 0.040042
+iter      3 effort 2.324625 -> 2.589405 d 0.26477987 p 0.96488964 t 7.40818221 worse/accept/report cpu 0.037371
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-m w a r t y c h z b [ ] \     M W A R T Y C H Z B { } |
-e s d f g i j k l ; '         E S D F G I J K L : "
-o x u q p n v , . /           O X U Q P N V < > ?
+q z e r a y u i o t [ ] \     Q Z E R A Y U I O T { } |
+n s d f g h j k l ; '         N S D F G H J K L : "
+w x c v b p m , . /           W X C V B P M < > ?
 ------------------------------------------------------------
-iter      4 effort 7.390687 -> 7.399419 d 0.00873240 p 0.99869813 t 6.70320046 worse/accept cpu 0.031131
+iter      4 effort 2.589405 -> 2.568247 d -0.02115803 p 0.99684857 t 6.70320046 better/accept/report cpu 0.031964
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-m w a r o y c h z b [ ] \     M W A R O Y C H Z B { } |
-e s d f g i j k l ; '         E S D F G I J K L : "
-t x u q p n v , . /           T X U Q P N V < > ?
+q z x r a y u i o t [ ] \     Q Z X R A Y U I O T { } |
+n s b f g h j k l ; '         N S B F G H J K L : "
+w e c v d p m , . /           W E C V D P M < > ?
 ------------------------------------------------------------
-iter      5 effort 7.399419 -> 8.563528 d 1.16410894 p 0.82536537 t 6.06530660 worse/accept cpu 0.038033
+iter      5 effort 2.568247 -> 3.440127 d 0.87187999 p 0.86610537 t 6.06530660 worse/reject/report cpu 0.053593
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-m w a r o y n h z b [ ] \     M W A R O Y N H Z B { } |
-e s d f g i j k l ; '         E S D F G I J K L : "
-t x u q p c v , . /           T X U Q P C V < > ?
+q n e r a y u t o i [ ] \     Q N E R A Y U T O I { } |
+z s d f g h j k l ; '         Z S D F G H J K L : "
+w x c v b p m , . /           W X C V B P M < > ?
 ------------------------------------------------------------
-iter      6 effort 8.563528 -> 8.667595 d 0.10406667 p 0.98121647 t 5.48811636 worse/accept cpu 0.031535
+iter      6 effort 2.568247 -> 2.681034 d 0.11278669 p 0.97965866 t 5.48811636 worse/accept/report cpu 0.044149
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-m w v r o y n h z b [ ] \     M W V R O Y N H Z B { } |
-e s d t g i j k l ; '         E S D T G I J K L : "
-f x u q p c a , . /           F X U Q P C A < > ?
+q n e r a y u f o i [ ] \     Q N E R A Y U F O I { } |
+z s d t g h j k l ; '         Z S D T G H J K L : "
+w x c v b p m , . /           W X C V B P M < > ?
 ------------------------------------------------------------
-iter      7 effort 8.667595 -> 6.618332 d -2.04926266 p 0.66188012 t 4.96585304 better/accept cpu 0.044101
+iter      7 effort 2.681034 -> 2.504799 d -0.17623436 p 0.96513312 t 4.96585304 better/accept/report cpu 0.037303
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-m w v r o y n h z b [ ] \     M W V R O Y N H Z B { } |
-e s d u g i j k l ; '         E S D U G I J K L : "
-f x t q p c a , . /           F X T Q P C A < > ?
+q n e r a y b f o i [ ] \     Q N E R A Y B F O I { } |
+z s d t g h j k l ; '         Z S D T G H J K L : "
+w x c v u p m , . /           W X C V U P M < > ?
 ------------------------------------------------------------
-iter      8 effort 6.618332 -> 7.221248 d 0.60291631 p 0.87443135 t 4.49328964 worse/accept cpu 0.036058
+iter      8 effort 2.504799 -> 2.616659 d 0.11185938 p 0.97541256 t 4.49328964 worse/accept/report cpu 0.038282
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-m w v r o y n f z b [ ] \     M W V R O Y N F Z B { } |
-e s d u g i j k l ; '         E S D U G I J K L : "
-h x t q p c a , . /           H X T Q P C A < > ?
+q n f r a y b e o i [ ] \     Q N F R A Y B E O I { } |
+z s d g t h j k l ; '         Z S D G T H J K L : "
+w x c v u p m , . /           W X C V U P M < > ?
 ------------------------------------------------------------
-iter      9 effort 7.221248 -> 8.634815 d 1.41356677 p 0.70632393 t 4.06569660 worse/accept cpu 0.030055
+iter      9 effort 2.616659 -> 2.827945 d 0.21128603 p 0.94935927 t 4.06569660 worse/accept/report cpu 0.04282
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-m w v r o y n f z b [ ] \     M W V R O Y N F Z B { } |
-p s d u g h j k l ; '         P S D U G H J K L : "
-i x t q e c a , . /           I X T Q E C A < > ?
+q n f r a k b e o i [ ] \     Q N F R A K B E O I { } |
+z w d g t h j y l ; '         Z W D G T H J Y L : "
+s x c v u p m , . /           S X C V U P M < > ?
 ------------------------------------------------------------
-iter     10 effort 8.634815 -> 10.380503 d 1.74568750 p 0.62217924 t 3.67879441 worse/reject cpu 0.040386
+iter     10 effort 2.827945 -> 3.087417 d 0.25947189 p 0.93189813 t 3.67879441 worse/accept/report cpu 0.041225
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-m w v r q y n f z b [ ] \     M W V R Q Y N F Z B { } |
-e s d u g i h k l ; '         E S D U G I H K L : "
-j x t o p c a , . /           J X T O P C A < > ?
+q n f r a k b e g i [ ] \     Q N F R A K B E G I { } |
+z w d o t h j y l ; '         Z W D O T H J Y L : "
+s x c v u p m , . /           S X C V U P M < > ?
 ------------------------------------------------------------
-iter     11 effort 8.634815 -> 7.037537 d -1.59727829 p 0.61887689 t 3.32871084 better/accept cpu 0.04335
+iter     11 effort 3.087417 -> 2.922501 d -0.16491609 p 0.95166373 t 3.32871084 better/accept/report cpu 0.037551
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-m w v r q y n f z b [ ] \     M W V R Q Y N F Z B { } |
-e s d u g i h k c ; '         E S D U G I H K C : "
-j x t o p l a , . /           J X T O P L A < > ?
+q n f r a k b e g i [ ] \     Q N F R A K B E G I { } |
+v w d o t h j y l ; '         V W D O T H J Y L : "
+s x c z u p m , . /           S X C Z U P M < > ?
 ------------------------------------------------------------
-iter     12 effort 7.037537 -> 7.336991 d 0.29945401 p 0.90536036 t 3.01194212 worse/accept cpu 0.03621
+iter     12 effort 2.922501 -> 2.899353 d -0.02314816 p 0.99234400 t 3.01194212 better/accept/report cpu 0.029706
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-m w a r q y n f e b [ ] \     M W A R Q Y N F E B { } |
-z s d u g i h k c ; '         Z S D U G I H K C : "
-j x t o p l v , . /           J X T O P L V < > ?
+q n f r a k b e g w [ ] \     Q N F R A K B E G W { } |
+v i d o t h j y l ; '         V I D O T H J Y L : "
+s x c z u p m , . /           S X C Z U P M < > ?
 ------------------------------------------------------------
-iter     13 effort 7.336991 -> 6.764749 d -0.57224168 p 0.81060658 t 2.72531793 better/accept cpu 0.04211
+iter     13 effort 2.899353 -> 2.634874 d -0.26447886 p 0.90751504 t 2.72531793 better/accept/report cpu 0.033859
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-m a w r q y n f e b [ ] \     M A W R Q Y N F E B { } |
-i s d u g z h k c ; '         I S D U G Z H K C : "
-j x t o p l v , . /           J X T O P L V < > ?
+q n f r a k b e g w [ ] \     Q N F R A K B E G W { } |
+v i d m t h j y l ; '         V I D M T H J Y L : "
+s x c z u p o , . /           S X C Z U P O < > ?
 ------------------------------------------------------------
-iter     14 effort 6.764749 -> 7.106558 d 0.34180917 p 0.87056709 t 2.46596964 worse/accept cpu 0.041592
+iter     14 effort 2.634874 -> 2.827802 d 0.19292837 p 0.92474587 t 2.46596964 worse/accept/report cpu 0.042742
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-m a w r q y n f e b [ ] \     M A W R Q Y N F E B { } |
-i s d u x z h k c ; '         I S D U X Z H K C : "
-j g t o p l v , . /           J G T O P L V < > ?
+q n f r a k d e g w [ ] \     Q N F R A K D E G W { } |
+v i b m t h j y l ; '         V I B M T H J Y L : "
+s x c z u p o , . /           S X C Z U P O < > ?
 ------------------------------------------------------------
-iter     15 effort 7.106558 -> 7.481055 d 0.37449665 p 0.84549100 t 2.23130160 worse/accept cpu 0.032162
+iter     15 effort 2.827802 -> 2.917693 d 0.08989143 p 0.96051417 t 2.23130160 worse/reject/report cpu 0.034339
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-m a w r q y n b e f [ ] \     M A W R Q Y N B E F { } |
-i s d u x z h k c ; '         I S D U X Z H K C : "
-j g t o p l v , . /           J G T O P L V < > ?
+q n f r a t b e g w [ ] \     Q N F R A T B E G W { } |
+u i d m k h j y l ; '         U I D M K H J Y L : "
+s x c z v p o , . /           S X C Z V P O < > ?
 ------------------------------------------------------------
-iter     16 effort 7.481055 -> 7.603166 d 0.12211062 p 0.94131092 t 2.01896518 worse/accept cpu 0.030296
+iter     16 effort 2.827802 -> 2.943728 d 0.11592615 p 0.94419875 t 2.01896518 worse/accept/report cpu 0.037052
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-m a w r q y n b e f [ ] \     M A W R Q Y N B E F { } |
-l s d u x z h k c ; '         L S D U X Z H K C : "
-j g t o p i v , . /           J G T O P I V < > ?
+q n f r a t b e g w [ ] \     Q N F R A T B E G W { } |
+u i d m v h j y l ; '         U I D M V H J Y L : "
+s x c z o p k , . /           S X C Z O P K < > ?
 ------------------------------------------------------------
-iter     17 effort 7.603166 -> 8.050991 d 0.44782556 p 0.78259704 t 1.82683524 worse/accept cpu 0.033553
+iter     17 effort 2.943728 -> 3.065457 d 0.12172835 p 0.93553805 t 1.82683524 worse/accept/report cpu 0.036008
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-m a w r q y i b e f [ ] \     M A W R Q Y I B E F { } |
-l s d u x z h k c ; '         L S D U X Z H K C : "
-j g t o p n v , . /           J G T O P N V < > ?
+q n f r a t b e g w [ ] \     Q N F R A T B E G W { } |
+x i d m v h j y l ; '         X I D M V H J Y L : "
+s u c z o p k , . /           S U C Z O P K < > ?
 ------------------------------------------------------------
-iter     18 effort 8.050991 -> 7.897097 d -0.15389405 p 0.91110195 t 1.65298888 better/accept cpu 0.031638
+iter     18 effort 3.065457 -> 3.168368 d 0.10291132 p 0.93964069 t 1.65298888 worse/accept/report cpu 0.034126
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-m a w r q u i b e f [ ] \     M A W R Q U I B E F { } |
-l s d y z x h k c ; '         L S D Y Z X H K C : "
-j g t o p n v , . /           J G T O P N V < > ?
+q n f r j t b e g w [ ] \     Q N F R J T B E G W { } |
+x i d m v h a y l ; '         X I D M V H A Y L : "
+s u c z o p k , . /           S U C Z O P K < > ?
 ------------------------------------------------------------
-iter     19 effort 7.897097 -> 8.068893 d 0.17179620 p 0.89148994 t 1.49568619 worse/accept cpu 0.031813
+iter     19 effort 3.168368 -> 2.948146 d -0.22022186 p 0.86308853 t 1.49568619 better/accept/report cpu 0.04513
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-w a m r q u i s e f [ ] \     W A M R Q U I S E F { } |
-l b d y z x h k c ; '         L B D Y Z X H K C : "
-j g t o p n v , . /           J G T O P N V < > ?
+e n f r j t b q g w [ ] \     E N F R J T B Q G W { } |
+x i d m v h a y l ; '         X I D M V H A Y L : "
+s u c z o p k , . /           S U C Z O P K < > ?
 ------------------------------------------------------------
-iter     20 effort 8.068893 -> 8.361343 d 0.29244933 p 0.80566081 t 1.35335283 worse/accept cpu 0.032306
+iter     20 effort 2.948146 -> 3.557268 d 0.60912160 p 0.63757499 t 1.35335283 worse/accept/report cpu 0.048366
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-w a m r q k i s e f [ ] \     W A M R Q K I S E F { } |
-l b d y z x h u c ; '         L B D Y Z X H U C : "
-j g t o p n v , . /           J G T O P N V < > ?
+e n b r j t f q g w [ ] \     E N B R J T F Q G W { } |
+x i d m v h a y l ; '         X I D M V H A Y L : "
+s u c z o p k , . /           S U C Z O P K < > ?
 ------------------------------------------------------------
-iter     21 effort 8.361343 -> 7.985396 d -0.37594697 p 0.73564715 t 1.22456428 better/accept cpu 0.032097
+iter     21 effort 3.557268 -> 3.567865 d 0.01059690 p 0.99138373 t 1.22456428 worse/accept/report cpu 0.031832
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-w l m r q k i s e f [ ] \     W L M R Q K I S E F { } |
-a b d y z x h u c ; '         A B D Y Z X H U C : "
-j o t g p n v , . /           J O T G P N V < > ?
+p n b r j t f q g w [ ] \     P N B R J T F Q G W { } |
+x i d m v h a y z ; '         X I D M V H A Y Z : "
+s u c l o e k , . /           S U C L O E K < > ?
 ------------------------------------------------------------
-iter     22 effort 7.985396 -> 7.624999 d -0.36039635 p 0.72234082 t 1.10803158 better/accept cpu 0.03834
+iter     22 effort 3.567865 -> 3.421289 d -0.14657556 p 0.87609159 t 1.10803158 better/accept/report cpu 0.049009
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-w l m r q k i s e f [ ] \     W L M R Q K I S E F { } |
-a b d v z x h u c ; '         A B D V Z X H U C : "
-j o t y p n g , . /           J O T Y P N G < > ?
+n p b r j t f q g w [ ] \     N P B R J T F Q G W { } |
+v i d m x h a y z ; '         V I D M X H A Y Z : "
+s u c l o e k , . /           S U C L O E K < > ?
 ------------------------------------------------------------
-iter     23 effort 7.624999 -> 7.853939 d 0.22893968 p 0.79584677 t 1.00258844 worse/accept cpu 0.029994
+iter     23 effort 3.421289 -> 3.507053 d 0.08576448 p 0.91801362 t 1.00258844 worse/accept/report cpu 0.03509
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-w l m r q k i s e f [ ] \     W L M R Q K I S E F { } |
-a d b v z x h u c ; '         A D B V Z X H U C : "
-j o t y p n g , . /           J O T Y P N G < > ?
+n p b c j t f q g w [ ] \     N P B C J T F Q G W { } |
+v i d m x h a y z ; '         V I D M X H A Y Z : "
+s u r l o e k , . /           S U R L O E K < > ?
 ------------------------------------------------------------
-iter     24 effort 7.853939 -> 7.919058 d 0.06511893 p 0.93073401 t 0.90717953 worse/accept cpu 0.028909
+iter     24 effort 3.507053 -> 3.522242 d 0.01518886 p 0.98339643 t 0.90717953 worse/accept/report cpu 0.035735
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-c l m r q k i s e f [ ] \     C L M R Q K I S E F { } |
-a d b v z x h u w ; '         A D B V Z X H U W : "
-j o t y p n g , . /           J O T Y P N G < > ?
+n p b z j t f q g w [ ] \     N P B Z J T F Q G W { } |
+v i d m x h a y c ; '         V I D M X H A Y C : "
+s u r l o e k , . /           S U R L O E K < > ?
 ------------------------------------------------------------
-iter     25 effort 7.919058 -> 7.890021 d -0.02903713 p 0.96524390 t 0.82084999 better/accept cpu 0.029283
+iter     25 effort 3.522242 -> 3.471939 d -0.05030377 p 0.94055746 t 0.82084999 better/accept/report cpu 0.031292
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-o l m r q k i s e g [ ] \     O L M R Q K I S E G { } |
-a d b v z x h u w ; '         A D B V Z X H U W : "
-j c t y p n f , . /           J C T Y P N F < > ?
+n g b z j t f q p w [ ] \     N G B Z J T F Q P W { } |
+v i d m x h a y c ; '         V I D M X H A Y C : "
+s u r l o e k , . /           S U R L O E K < > ?
 ------------------------------------------------------------
-iter     26 effort 7.890021 -> 8.326511 d 0.43649032 p 0.55561530 t 0.74273578 worse/reject cpu 0.034565
+iter     26 effort 3.471939 -> 3.479211 d 0.00727255 p 0.99025620 t 0.74273578 worse/accept/report cpu 0.029919
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-c l m r q k i s e f [ ] \     C L M R Q K I S E F { } |
-a d b v z x h u j ; '         A D B V Z X H U J : "
-w o t y p n g , . /           W O T Y P N G < > ?
+n g b z j t f q l w [ ] \     N G B Z J T F Q L W { } |
+v h d m x i a y c ; '         V H D M X I A Y C : "
+s u r p o e k , . /           S U R P O E K < > ?
 ------------------------------------------------------------
-iter     27 effort 7.890021 -> 8.657062 d 0.76704110 p 0.31939184 t 0.67205513 worse/reject cpu 0.029693
+iter     27 effort 3.479211 -> 3.392374 d -0.08683670 p 0.87878880 t 0.67205513 better/accept/report cpu 0.040872
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-c l m r q k i v e f [ ] \     C L M R Q K I V E F { } |
-a d b s z x h u w ; '         A D B S Z X H U W : "
-j o t y p n g , . /           J O T Y P N G < > ?
+l o b z j t f q n w [ ] \     L O B Z J T F Q N W { } |
+v h d m x i a y c ; '         V H D M X I A Y C : "
+s u r p g e k , . /           S U R P G E K < > ?
 ------------------------------------------------------------
-iter     28 effort 7.890021 -> 7.457799 d -0.43222215 p 0.49126378 t 0.60810063 better/accept cpu 0.030891
+iter     28 effort 3.392374 -> 3.322338 d -0.07003678 p 0.89121194 t 0.60810063 better/accept/report cpu 0.036778
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-c l m r q k i v e f [ ] \     C L M R Q K I V E F { } |
-a d b s z x h u w ; '         A D B S Z X H U W : "
-j p t y o n g , . /           J P T Y O N G < > ?
+u o b z j t f s n w [ ] \     U O B Z J T F S N W { } |
+v h d m x i a y c ; '         V H D M X I A Y C : "
+q l r p g e k , . /           Q L R P G E K < > ?
 ------------------------------------------------------------
-iter     29 effort 7.457799 -> 7.583220 d 0.12542085 p 0.79617070 t 0.55023220 worse/accept cpu 0.031773
+iter     29 effort 3.322338 -> 2.988192 d -0.33414598 p 0.54482984 t 0.55023220 better/accept/report cpu 0.037549
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-c m l r q k i v e f [ ] \     C M L R Q K I V E F { } |
-a d b s z x h u w ; '         A D B S Z X H U W : "
-j p t y o n g , . /           J P T Y O N G < > ?
+h o b z j t f s n w [ ] \     H O B Z J T F S N W { } |
+v u d m x i a y c ; '         V U D M X I A Y C : "
+q l r p g e k , . /           Q L R P G E K < > ?
 ------------------------------------------------------------
-iter     30 effort 7.583220 -> 7.374354 d -0.20886576 p 0.65736353 t 0.49787068 better/accept cpu 0.028151
+iter     30 effort 2.988192 -> 3.178238 d 0.19004621 p 0.68268753 t 0.49787068 worse/reject/report cpu 0.030398
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-x m l r q k i v e f [ ] \     X M L R Q K I V E F { } |
-a d b s z c h u w ; '         A D B S Z C H U W : "
-j p t y o n g , . /           J P T Y O N G < > ?
+b o u z j t f s n w [ ] \     B O U Z J T F S N W { } |
+v h d m x i a y c ; '         V H D M X I A Y C : "
+q l r p g e k , . /           Q L R P G E K < > ?
 ------------------------------------------------------------
-iter     31 effort 7.374354 -> 6.920614 d -0.45374006 p 0.36523658 t 0.45049202 better/accept cpu 0.028631
+iter     31 effort 2.988192 -> 2.905262 d -0.08292917 p 0.83186446 t 0.45049202 better/accept/report cpu 0.030642
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-x m l r q k i n e f [ ] \     X M L R Q K I N E F { } |
-a d b s z c h u w ; '         A D B S Z C H U W : "
-j p t y o v g , . /           J P T Y O V G < > ?
+b o u z j p f s n w [ ] \     B O U Z J P F S N W { } |
+v h d m x i a y c ; '         V H D M X I A Y C : "
+q l r t g e k , . /           Q L R T G E K < > ?
 ------------------------------------------------------------
-iter     32 effort 6.920614 -> 6.907104 d -0.01351001 p 0.96739976 t 0.40762204 better/accept cpu 0.028517
+iter     32 effort 2.905262 -> 2.898054 d -0.00720824 p 0.98247181 t 0.40762204 better/accept/report cpu 0.033227
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-x m l r q k i n e h [ ] \     X M L R Q K I N E H { } |
-a t b s z c f u w ; '         A T B S Z C F U W : "
-j p d y o v g , . /           J P D Y O V G < > ?
+b o g z j p f s n w [ ] \     B O G Z J P F S N W { } |
+v h d m x i a y c ; '         V H D M X I A Y C : "
+q l r t u e k , . /           Q L R T U E K < > ?
 ------------------------------------------------------------
-iter     33 effort 6.907104 -> 6.816109 d -0.09099432 p 0.78136755 t 0.36883167 better/accept cpu 0.030592
+iter     33 effort 2.898054 -> 2.943975 d 0.04592051 p 0.88293595 t 0.36883167 worse/accept/report cpu 0.030689
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-x m l r q k i o e h [ ] \     X M L R Q K I O E H { } |
-a t b s z c n u w ; '         A T B S Z C N U W : "
-j p d y f v g , . /           J P D Y F V G < > ?
+b o s z j t f g n w [ ] \     B O S Z J T F G N W { } |
+v h d m x i a y c ; '         V H D M X I A Y C : "
+q l r p u e k , . /           Q L R P U E K < > ?
 ------------------------------------------------------------
-iter     34 effort 6.816109 -> 5.752321 d -1.06378831 p 0.04127303 t 0.33373270 better/accept cpu 0.031327
+iter     34 effort 2.943975 -> 2.910301 d -0.03367339 p 0.90402409 t 0.33373270 better/accept/report cpu 0.030749
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-x m l r q k i o e h [ ] \     X M L R Q K I O E H { } |
-d t b s z c n u w ; '         D T B S Z C N U W : "
-j p a y f v g , . /           J P A Y F V G < > ?
+b o s z j q f g n w [ ] \     B O S Z J Q F G N W { } |
+v h d m t i a y c ; '         V H D M T I A Y C : "
+x l r p u e k , . /           X L R P U E K < > ?
 ------------------------------------------------------------
-iter     35 effort 5.752321 -> 6.398138 d 0.64581654 p 0.11781371 t 0.30197383 worse/accept cpu 0.02844
+iter     35 effort 2.910301 -> 2.696435 d -0.21386620 p 0.49251636 t 0.30197383 better/accept/report cpu 0.036113
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-x m l r q k e o i h [ ] \     X M L R Q K E O I H { } |
-d t b s z c n y w ; '         D T B S Z C N Y W : "
-j p a u f v g , . /           J P A U F V G < > ?
+b o s z j q f g n w [ ] \     B O S Z J Q F G N W { } |
+v h d m t i a y c ; '         V H D M T I A Y C : "
+x e r p u l k , . /           X E R P U L K < > ?
 ------------------------------------------------------------
-iter     36 effort 6.398138 -> 6.739596 d 0.34145874 p 0.28659687 t 0.27323722 worse/accept cpu 0.030615
+iter     36 effort 2.696435 -> 3.013604 d 0.31716926 p 0.31324066 t 0.27323722 worse/accept/report cpu 0.034436
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-x m l r p k e o i h [ ] \     X M L R P K E O I H { } |
-d t b s z c n y w ; '         D T B S Z C N Y W : "
-j q a u f v g , . /           J Q A U F V G < > ?
+b o s z j m f g n w [ ] \     B O S Z J M F G N W { } |
+v h d q t i a y c ; '         V H D Q T I A Y C : "
+x e r p u l k , . /           X E R P U L K < > ?
 ------------------------------------------------------------
-iter     37 effort 6.739596 -> 6.532658 d -0.20693863 p 0.43300285 t 0.24723526 better/accept cpu 0.028104
+iter     37 effort 3.013604 -> 3.093863 d 0.08025844 p 0.72279924 t 0.24723526 worse/accept/report cpu 0.029918
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-x m q r p k e o i h [ ] \     X M Q R P K E O I H { } |
-d t b s z c n y w ; '         D T B S Z C N Y W : "
-j l a u f v g , . /           J L A U F V G < > ?
+b o s z j m f g n w [ ] \     B O S Z J M F G N W { } |
+v h d q t i k y c ; '         V H D Q T I K Y C : "
+x e r p u l a , . /           X E R P U L A < > ?
 ------------------------------------------------------------
-iter     38 effort 6.532658 -> 7.251899 d 0.71924147 p 0.04015154 t 0.22370772 worse/reject cpu 0.028601
+iter     38 effort 3.093863 -> 3.357772 d 0.26390890 p 0.30736969 t 0.22370772 worse/reject/report cpu 0.033465
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-x m l r p k e o z h [ ] \     X M L R P K E O Z H { } |
-d u b s i c n y w ; '         D U B S I C N Y W : "
-j q a t f v g , . /           J Q A T F V G < > ?
+b n s z j m f g o w [ ] \     B N S Z J M F G O W { } |
+v h d q t i a y c ; '         V H D Q T I A Y C : "
+x e r p u l k , . /           X E R P U L K < > ?
 ------------------------------------------------------------
-iter     39 effort 6.532658 -> 7.753996 d 1.22133804 p 0.00239659 t 0.20241911 worse/reject cpu 0.034522
+iter     39 effort 3.093863 -> 3.061879 d -0.03198353 p 0.85384427 t 0.20241911 better/accept/report cpu 0.031813
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-x m l r f k e o i h [ ] \     X M L R F K E O I H { } |
-d t b s z c n y w ; '         D T B S Z C N Y W : "
-j q a u p v g , . /           J Q A U P V G < > ?
+b n s z j m f c o w [ ] \     B N S Z J M F C O W { } |
+v h d q t i a u g ; '         V H D Q T I A U G : "
+x e r p y l k , . /           X E R P Y L K < > ?
 ------------------------------------------------------------
-iter     40 effort 6.532658 -> 6.390872 d -0.14178604 p 0.46110682 t 0.18315639 better/accept cpu 0.027999
+iter     40 effort 3.061879 -> 2.973116 d -0.08876364 p 0.61592318 t 0.18315639 better/accept/report cpu 0.031721
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-c m l r f k e o i h [ ] \     C M L R F K E O I H { } |
-d t b s z x n y w ; '         D T B S Z X N Y W : "
-j q a u p v g , . /           J Q A U P V G < > ?
+b n s z j m f c o w [ ] \     B N S Z J M F C O W { } |
+v h d q t u a i g ; '         V H D Q T U A I G : "
+x e r p y l k , . /           X E R P Y L K < > ?
 ------------------------------------------------------------
-iter     41 effort 6.390872 -> 6.709363 d 0.31849155 p 0.14634519 t 0.16572675 worse/reject cpu 0.027877
+iter     41 effort 2.973116 -> 2.898907 d -0.07420895 p 0.63904595 t 0.16572675 better/accept/report cpu 0.034771
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-x m f r l k e o i h [ ] \     X M F R L K E O I H { } |
-d t b s z c n y w ; '         D T B S Z C N Y W : "
-j q a u p v g , . /           J Q A U P V G < > ?
+b n s z j m f c o w [ ] \     B N S Z J M F C O W { } |
+v h q d t u a i g ; '         V H Q D T U A I G : "
+x e r p y l k , . /           X E R P Y L K < > ?
 ------------------------------------------------------------
-iter     42 effort 6.390872 -> 6.501199 d 0.11032733 p 0.47915436 t 0.14995577 worse/reject cpu 0.028059
+iter     42 effort 2.898907 -> 2.911641 d 0.01273448 p 0.91858433 t 0.14995577 worse/accept/report cpu 0.031088
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-x m l r f b e o i h [ ] \     X M L R F B E O I H { } |
-t d k s z c n y w ; '         T D K S Z C N Y W : "
-j q a u p v g , . /           J Q A U P V G < > ?
+b p s z j m f c o w [ ] \     B P S Z J M F C O W { } |
+v h q k t u a i g ; '         V H Q K T U A I G : "
+x e r n y l d , . /           X E R N Y L D < > ?
 ------------------------------------------------------------
-iter     43 effort 6.390872 -> 7.005187 d 0.61431512 p 0.01080777 t 0.13568559 worse/reject cpu 0.028644
+iter     43 effort 2.911641 -> 3.006344 d 0.09470299 p 0.49759983 t 0.13568559 worse/reject/report cpu 0.032979
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-x m l r f k e o i h [ ] \     X M L R F K E O I H { } |
-d t b s z c n y p ; '         D T B S Z C N Y P : "
-j u a q w v g , . /           J U A Q W V G < > ?
+b n s z j m f c d w [ ] \     B N S Z J M F C D W { } |
+v h q o t u a i g ; '         V H Q O T U A I G : "
+x e r p y l k , . /           X E R P Y L K < > ?
 ------------------------------------------------------------
-iter     44 effort 6.390872 -> 6.804185 d 0.41331298 p 0.03451124 t 0.12277340 worse/reject cpu 0.029005
+iter     44 effort 2.911641 -> 2.799998 d -0.11164299 p 0.40278924 t 0.12277340 better/accept/report cpu 0.031177
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-x m l r f k h o i e [ ] \     X M L R F K H O I E { } |
-d t b s z c n y w ; '         D T B S Z C N Y W : "
-j q a u p v g , . /           J Q A U P V G < > ?
+b n s z x m f c d w [ ] \     B N S Z X M F C D W { } |
+v h q o t u a i g ; '         V H Q O T U A I G : "
+j e r p y l k , . /           J E R P Y L K < > ?
 ------------------------------------------------------------
-iter     45 effort 6.390872 -> 6.966768 d 0.57589635 p 0.00560524 t 0.11108997 worse/reject cpu 0.031192
+iter     45 effort 2.799998 -> 2.799655 d -0.00034338 p 0.99691377 t 0.11108997 better/accept/report cpu 0.029831
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-x m l r f k e o i h [ ] \     X M L R F K E O I H { } |
-d t b s n c z y w ; '         D T B S N C Z Y W : "
-j q a u p v g , . /           J Q A U P V G < > ?
+b n s z x m f c a w [ ] \     B N S Z X M F C A W { } |
+v h q r t u d i g ; '         V H Q R T U D I G : "
+j e o p y l k , . /           J E O P Y L K < > ?
 ------------------------------------------------------------
-iter     46 effort 6.390872 -> 6.770929 d 0.38005703 p 0.02280053 t 0.10051836 worse/reject cpu 0.030285
+iter     46 effort 2.799655 -> 3.039837 d 0.24018192 p 0.09168162 t 0.10051836 worse/reject/report cpu 0.032241
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-x m l r f q e o i h [ ] \     X M L R F Q E O I H { } |
-d c b s z t n y w ; '         D C B S Z T N Y W : "
-j k a u p v g , . /           J K A U P V G < > ?
+b n s z x v f c d w [ ] \     B N S Z X V F C D W { } |
+m h q o t u a i g ; '         M H Q O T U A I G : "
+l e r p y j k , . /           L E R P Y J K < > ?
 ------------------------------------------------------------
-iter     47 effort 6.390872 -> 7.172898 d 0.78202635 p 0.00018445 t 0.09095277 worse/reject cpu 0.028372
+iter     47 effort 2.799655 -> 2.954786 d 0.15513151 p 0.18165843 t 0.09095277 worse/reject/report cpu 0.033088
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-x m l u f k e o i h [ ] \     X M L U F K E O I H { } |
-d t b s z c n y w ; '         D T B S Z C N Y W : "
-j q a r p v g , . /           J Q A R P V G < > ?
+b n s z x m f c d w [ ] \     B N S Z X M F C D W { } |
+v h q o t g a i u ; '         V H Q O T G A I U : "
+j e r p y l k , . /           J E R P Y L K < > ?
 ------------------------------------------------------------
-iter     48 effort 6.390872 -> 6.874696 d 0.48382423 p 0.00279767 t 0.08229747 worse/reject cpu 0.028015
+iter     48 effort 2.799655 -> 2.784181 d -0.01547405 p 0.82859328 t 0.08229747 better/accept/report cpu 0.031112
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-x m l r f k e o i h [ ] \     X M L R F K E O I H { } |
-d t b z s c n y w ; '         D T B Z S C N Y W : "
-j q a u p g v , . /           J Q A U P G V < > ?
+b n s z x m f c g w [ ] \     B N S Z X M F C G W { } |
+v h q o t d a i u ; '         V H Q O T D A I U : "
+j e r p y l k , . /           J E R P Y L K < > ?
 ------------------------------------------------------------
-iter     49 effort 6.390872 -> 6.938425 d 0.54755305 p 0.00064062 t 0.07446583 worse/reject cpu 0.029952
+iter     49 effort 2.784181 -> 2.732814 d -0.05136676 p 0.50167484 t 0.07446583 better/accept/report cpu 0.029978
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-x m l r f k e o i h [ ] \     X M L R F K E O I H { } |
-d t b s z c n y w ; '         D T B S Z C N Y W : "
-u q a j p v g , . /           U Q A J P V G < > ?
+b n s z x m f d g w [ ] \     B N S Z X M F D G W { } |
+v h q o t c a i u ; '         V H Q O T C A I U : "
+j e r p y l k , . /           J E R P Y L K < > ?
 ------------------------------------------------------------
-iter     50 effort 6.390872 -> 6.772698 d 0.38182666 p 0.00345888 t 0.06737947 worse/reject cpu 0.028688
+iter     50 effort 2.732814 -> 2.755079 d 0.02226473 p 0.71860903 t 0.06737947 worse/accept/report cpu 0.030095
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-x m i r f b e o l h [ ] \     X M I R F B E O L H { } |
-d t k s z c n y w ; '         D T K S Z C N Y W : "
-j q a u p v g , . /           J Q A U P V G < > ?
+b n s z x m f t g w [ ] \     B N S Z X M F T G W { } |
+v h q o d c a i u ; '         V H Q O D C A I U : "
+j e r p y l k , . /           J E R P Y L K < > ?
 ------------------------------------------------------------
-iter     51 effort 6.390872 -> 6.477097 d 0.08622546 p 0.24309902 t 0.06096747 worse/reject cpu 0.028389
+iter     51 effort 2.755079 -> 2.737850 d -0.01722846 p 0.75383293 t 0.06096747 better/accept/report cpu 0.030426
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-x m l r f a e o i h [ ] \     X M L R F A E O I H { } |
-d t b s z c n y w ; '         D T B S Z C N Y W : "
-j q k u p v g , . /           J Q K U P V G < > ?
+b n s z x j f t p w [ ] \     B N S Z X J F T P W { } |
+v h q o d c a i u ; '         V H Q O D C A I U : "
+m e r g y l k , . /           M E R G Y L K < > ?
 ------------------------------------------------------------
-iter     52 effort 6.390872 -> 6.465920 d 0.07504810 p 0.25655460 t 0.05516564 worse/reject cpu 0.030415
+iter     52 effort 2.737850 -> 2.814411 d 0.07656112 p 0.24961373 t 0.05516564 worse/reject/report cpu 0.030071
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-x d m r f k e o i h [ ] \     X D M R F K E O I H { } |
-l t b s z c n y w ; '         L T B S Z C N Y W : "
-j q a u p v g , . /           J Q A U P V G < > ?
+b n s z x m f o g w [ ] \     B N S Z X M F O G W { } |
+v h q t d c a i u ; '         V H Q T D C A I U : "
+j e r p y l k , . /           J E R P Y L K < > ?
 ------------------------------------------------------------
-iter     53 effort 6.390872 -> 6.736339 d 0.34546780 p 0.00098685 t 0.04991594 worse/reject cpu 0.027704
+iter     53 effort 2.737850 -> 2.712614 d -0.02523652 p 0.60315535 t 0.04991594 better/accept/report cpu 0.031386
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-x m n r f k e o i h [ ] \     X M N R F K E O I H { } |
-d t b s z c l y w ; '         D T B S Z C L Y W : "
-j q a u v p g , . /           J Q A U V P G < > ?
+b n s z x m f o g w [ ] \     B N S Z X M F O G W { } |
+t h q v d c a i u ; '         T H Q V D C A I U : "
+j e r p y l k , . /           J E R P Y L K < > ?
 ------------------------------------------------------------
-iter     54 effort 6.390872 -> 6.333874 d -0.05699751 p 0.28309821 t 0.04516581 better/accept cpu 0.028487
+iter     54 effort 2.712614 -> 2.966787 d 0.25417363 p 0.00359732 t 0.04516581 worse/reject/report cpu 0.032089
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-x m n r f k e o i l [ ] \     X M N R F K E O I L { } |
-d t b s j c h y w ; '         D T B S J C H Y W : "
-z q a u v p g , . /           Z Q A U V P G < > ?
+b n s z x m f o g w [ ] \     B N S Z X M F O G W { } |
+v h e t d c a i u ; '         V H E T D C A I U : "
+j q r p y l k , . /           J Q R P Y L K < > ?
 ------------------------------------------------------------
-iter     55 effort 6.333874 -> 6.157814 d -0.17606010 p 0.01345979 t 0.04086771 better/accept cpu 0.028187
+iter     55 effort 2.712614 -> 1.946549 d -0.76606511 p 0.00000001 t 0.04086771 better/accept/report cpu 0.032072
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-g m n r f k e o i l [ ] \     G M N R F K E O I L { } |
-d t b s j c h y w ; '         D T B S J C H Y W : "
-z q a u v p x , . /           Z Q A U V P X < > ?
+b n s z x m f e g w [ ] \     B N S Z X M F E G W { } |
+v h j t d c a i u ; '         V H J T D C A I U : "
+o q r p y l k , . /           O Q R P Y L K < > ?
 ------------------------------------------------------------
-iter     56 effort 6.157814 -> 6.439966 d 0.28215228 p 0.00048559 t 0.03697864 worse/reject cpu 0.027402
+iter     56 effort 1.946549 -> 2.620098 d 0.67354919 p 0.00000001 t 0.03697864 worse/reject/report cpu 0.033833
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-x m n r f k q o i l [ ] \     X M N R F K Q O I L { } |
-d b t s j c h y w ; '         D B T S J C H Y W : "
-z e a u v p g , . /           Z E A U V P G < > ?
+b n s z x m f o g w [ ] \     B N S Z X M F O G W { } |
+v h e t d a c i u ; '         V H E T D A C I U : "
+j q r p y l k , . /           J Q R P Y L K < > ?
 ------------------------------------------------------------
-iter     57 effort 6.157814 -> 7.708690 d 1.55087570 p 0.00000000 t 0.03345965 worse/reject cpu 0.031583
+iter     57 effort 1.946549 -> 2.034469 d 0.08792059 p 0.07224734 t 0.03345965 worse/reject/report cpu 0.02958
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-x m n r f b e o i l [ ] \     X M N R F B E O I L { } |
-d t k s j c h y w ; '         D T K S J C H Y W : "
-z q a g v p u , . /           Z Q A G V P U < > ?
+b e s z x m f o g w [ ] \     B E S Z X M F O G W { } |
+v h t n d c a i u ; '         V H T N D C A I U : "
+j q r p y l k , . /           J Q R P Y L K < > ?
 ------------------------------------------------------------
-iter     58 effort 6.157814 -> 6.057499 d -0.10031554 p 0.03639157 t 0.03027555 better/accept cpu 0.028059
+iter     58 effort 1.946549 -> 2.251735 d 0.30518635 p 0.00004190 t 0.03027555 worse/reject/report cpu 0.029816
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-x m n r z b e o i l [ ] \     X M N R Z B E O I L { } |
-d t k s j c h y w ; '         D T K S J C H Y W : "
-f q a g v p u , . /           F Q A G V P U < > ?
+b n s z x m f o g w [ ] \     B N S Z X M F O G W { } |
+v h e t d c i k u ; '         V H E T D C I K U : "
+j q r p y l a , . /           J Q R P Y L A < > ?
 ------------------------------------------------------------
-iter     59 effort 6.057499 -> 6.603099 d 0.54560093 p 0.00000000 t 0.02739445 worse/reject cpu 0.027739
+iter     59 effort 1.946549 -> 2.242835 d 0.29628617 p 0.00002008 t 0.02739445 worse/reject/report cpu 0.029498
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-x m n r f b v o i l [ ] \     X M N R F B V O I L { } |
-d t p s j c h y w ; '         D T P S J C H Y W : "
-z q a g e k u , . /           Z Q A G E K U < > ?
+b n s z x m d o g w [ ] \     B N S Z X M D O G W { } |
+v h e t f c a y u ; '         V H E T F C A Y U : "
+j q r p i l k , . /           J Q R P I L K < > ?
 ------------------------------------------------------------
-iter     60 effort 6.057499 -> 7.316876 d 1.25937788 p 0.00000000 t 0.02478752 worse/reject cpu 0.028392
+iter     60 effort 1.946549 -> 2.275036 d 0.32848779 p 0.00000176 t 0.02478752 worse/reject/report cpu 0.029745
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-x m n r t b e o i l [ ] \     X M N R T B E O I L { } |
-d f k s j c h y w ; '         D F K S J C H Y W : "
-z q a g v p u , . /           Z Q A G V P U < > ?
+b n q z x m f o g w [ ] \     B N Q Z X M F O G W { } |
+v h e t d c s i u ; '         V H E T D C S I U : "
+j a r p y l k , . /           J A R P Y L K < > ?
 ------------------------------------------------------------
-iter     61 effort 6.057499 -> 6.495184 d 0.43768552 p 0.00000000 t 0.02242868 worse/reject cpu 0.028401
+iter     61 effort 1.946549 -> 2.345503 d 0.39895396 p 0.00000002 t 0.02242868 worse/reject/report cpu 0.029246
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-x m n l f b e o i r [ ] \     X M N L F B E O I R { } |
-d t k s j c g y w ; '         D T K S J C G Y W : "
-z q a h v p u , . /           Z Q A H V P U < > ?
+b q s z x m f o g w [ ] \     B Q S Z X M F O G W { } |
+v h e t d c a i u ; '         V H E T D C A I U : "
+j n r p y l k , . /           J N R P Y L K < > ?
 ------------------------------------------------------------
-iter     62 effort 6.057499 -> 6.850655 d 0.79315623 p 0.00000000 t 0.02029431 worse/reject cpu 0.027811
+iter     62 effort 1.946549 -> 2.025904 d 0.07935568 p 0.02003562 t 0.02029431 worse/accept/report cpu 0.029621
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-x m n r f b e o i l [ ] \     X M N R F B E O I L { } |
-d t y s j c h v w ; '         D T Y S J C H V W : "
-z q a g k p u , . /           Z Q A G K P U < > ?
+b q s z x m n o g w [ ] \     B Q S Z X M N O G W { } |
+v h e t d c a i u ; '         V H E T D C A I U : "
+j f r p y l k , . /           J F R P Y L K < > ?
 ------------------------------------------------------------
-iter     63 effort 6.057499 -> 6.010508 d -0.04699018 p 0.07738570 t 0.01836305 better/accept cpu 0.028186
+iter     63 effort 2.025904 -> 1.938805 d -0.08709958 p 0.00871074 t 0.01836305 better/accept/report cpu 0.029878
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-q m n r f b e o i l [ ] \     Q M N R F B E O I L { } |
-d t y s j c h v w ; '         D T Y S J C H V W : "
-z x a g k p u , . /           Z X A G K P U < > ?
+b q s z x m n o g w [ ] \     B Q S Z X M N O G W { } |
+v h e t d c l i u ; '         V H E T D C L I U : "
+j f r p y a k , . /           J F R P Y A K < > ?
 ------------------------------------------------------------
-iter     64 effort 6.010508 -> 6.021110 d 0.01060200 p 0.52830774 t 0.01661557 worse/reject cpu 0.027612
+iter     64 effort 1.938805 -> 2.093106 d 0.15430142 p 0.00009266 t 0.01661557 worse/reject/report cpu 0.029338
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-w m n r c b e o i l [ ] \     W M N R C B E O I L { } |
-d t y s j f h v x ; '         D T Y S J F H V X : "
-z q a g k p u , . /           Z Q A G K P U < > ?
+b q s r x m n o g w [ ] \     B Q S R X M N O G W { } |
+v h e t d c a i u ; '         V H E T D C A I U : "
+j z f p y l k , . /           J Z F P Y L K < > ?
 ------------------------------------------------------------
-iter     65 effort 6.010508 -> 6.548462 d 0.53795391 p 0.00000000 t 0.01503439 worse/reject cpu 0.027769
+iter     65 effort 1.938805 -> 1.820216 d -0.11858844 p 0.00037529 t 0.01503439 better/accept/report cpu 0.031447
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-x m n a f b e o i l [ ] \     X M N A F B E O I L { } |
-d q y s j c h v w ; '         D Q Y S J C H V W : "
-z t r g k p u , . /           Z T R G K P U < > ?
+b q i r x m n o a w [ ] \     B Q I R X M N O A W { } |
+v h e t d c g s u ; '         V H E T D C G S U : "
+j z f p y l k , . /           J Z F P Y L K < > ?
 ------------------------------------------------------------
-iter     66 effort 6.010508 -> 7.789739 d 1.77923037 p 0.00000000 t 0.01360368 worse/reject cpu 0.029002
+iter     66 effort 1.820216 -> 2.005925 d 0.18570891 p 0.00000118 t 0.01360368 worse/reject/report cpu 0.029865
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-x m n r c b e y i l [ ] \     X M N R C B E Y I L { } |
-d t o s j f h v w ; '         D T O S J F H V W : "
-z q a g k p u , . /           Z Q A G K P U < > ?
+b q s r x m n o g w [ ] \     B Q S R X M N O G W { } |
+v h y t d c a i u ; '         V H Y T D C A I U : "
+j z f p e l k , . /           J Z F P E L K < > ?
 ------------------------------------------------------------
-iter     67 effort 6.010508 -> 5.759482 d -0.25102603 p 0.00000000 t 0.01230912 better/accept cpu 0.028919
+iter     67 effort 1.820216 -> 2.428184 d 0.60796752 p 0.00000000 t 0.01230912 worse/reject/report cpu 0.029658
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-x m n r c b e y j l [ ] \     X M N R C B E Y J L { } |
-d t o s i f h v w ; '         D T O S I F H V W : "
-z q a g k p u , . /           Z Q A G K P U < > ?
+b q n r x m s o g w [ ] \     B Q N R X M S O G W { } |
+v h e t d c u i a ; '         V H E T D C U I A : "
+j z f p y l k , . /           J Z F P Y L K < > ?
 ------------------------------------------------------------
-iter     68 effort 5.759482 -> 6.087756 d 0.32827349 p 0.00000000 t 0.01113775 worse/reject cpu 0.029593
+iter     68 effort 1.820216 -> 1.838277 d 0.01806073 p 0.19758676 t 0.01113775 worse/accept/report cpu 0.031715
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-x m n r j b e y i l [ ] \     X M N R J B E Y I L { } |
-d t o s c f k v w ; '         D T O S C F K V W : "
-z q a g h p u , . /           Z Q A G H P U < > ?
+b q n r x m s o g w [ ] \     B Q N R X M S O G W { } |
+j h e t d c u i a ; '         J H E T D C U I A : "
+v z f p y l k , . /           V Z F P Y L K < > ?
 ------------------------------------------------------------
-iter     69 effort 5.759482 -> 6.581103 d 0.82162028 p 0.00000000 t 0.01007785 worse/reject cpu 0.027786
+iter     69 effort 1.838277 -> 1.878443 d 0.04016579 p 0.01858223 t 0.01007785 worse/reject/report cpu 0.029582
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-x z n r c b e y i l [ ] \     X Z N R C B E Y I L { } |
-d t o s j f h v g ; '         D T O S J F H V G : "
-m q a w k p u , . /           M Q A W K P U < > ?
+b q n r x m s o g w [ ] \     B Q N R X M S O G W { } |
+v h e l d c u i y ; '         V H E L D C U I Y : "
+j z f p a t k , . /           J Z F P A T K < > ?
 ------------------------------------------------------------
-iter     70 effort 5.759482 -> 6.098955 d 0.33947259 p 0.00000000 t 0.00911882 worse/reject cpu 0.027827
+iter     70 effort 1.838277 -> 2.240532 d 0.40225525 p 0.00000000 t 0.00911882 worse/reject/report cpu 0.029303
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-x m n r w b e y i a [ ] \     X M N R W B E Y I A { } |
-d t o s j f h v c ; '         D T O S J F H V C : "
-z q l g k p u , . /           Z Q L G K P U < > ?
+b q n r x m s o g a [ ] \     B Q N R X M S O G A { } |
+v d e t h c u i w ; '         V D E T H C U I W : "
+j z f p y l k , . /           J Z F P Y L K < > ?
 ------------------------------------------------------------
-iter     71 effort 5.759482 -> 5.967457 d 0.20797447 p 0.00000000 t 0.00825105 worse/reject cpu 0.027873
+iter     71 effort 1.838277 -> 2.130502 d 0.29222466 p 0.00000000 t 0.00825105 worse/reject/report cpu 0.033598
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-a m n r c b e y i h [ ] \     A M N R C B E Y I H { } |
-d t o s j f l v w ; '         D T O S J F L V W : "
-z q x g k p u , . /           Z Q X G K P U < > ?
+b q n r x m s o g y [ ] \     B Q N R X M S O G Y { } |
+v h e t d f u i a ; '         V H E T D F U I A : "
+j z c p w l k , . /           J Z C P W L K < > ?
 ------------------------------------------------------------
-iter     72 effort 5.759482 -> 7.153772 d 1.39429014 p 0.00000000 t 0.00746586 worse/reject cpu 0.029533
+iter     72 effort 1.838277 -> 1.843468 d 0.00519104 p 0.49892269 t 0.00746586 worse/accept/report cpu 0.029702
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-x m n r c b e y i l [ ] \     X M N R C B E Y I L { } |
-v t o s j q h d w ; '         V T O S J Q H D W : "
-z f a g k p u , . /           Z F A G K P U < > ?
+b q n r x m s o g y [ ] \     B Q N R X M S O G Y { } |
+v h e t d f u w a ; '         V H E T D F U W A : "
+j z c p i l k , . /           J Z C P I L K < > ?
 ------------------------------------------------------------
-iter     73 effort 5.759482 -> 5.914671 d 0.15518881 p 0.00000000 t 0.00675539 worse/reject cpu 0.028178
+iter     73 effort 1.843468 -> 2.122148 d 0.27867954 p 0.00000000 t 0.00675539 worse/reject/report cpu 0.029059
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-l m n r c b e y i x [ ] \     L M N R C B E Y I X { } |
-d t o s j f h v w ; '         D T O S J F H V W : "
-z q a g k p u , . /           Z Q A G K P U < > ?
+b q n r x m s d g y [ ] \     B Q N R X M S D G Y { } |
+v h e t o f u i a ; '         V H E T O F U I A : "
+j z c p w l k , . /           J Z C P W L K < > ?
 ------------------------------------------------------------
-iter     74 effort 5.759482 -> 6.104200 d 0.34471796 p 0.00000000 t 0.00611253 worse/reject cpu 0.027901
+iter     74 effort 1.843468 -> 1.859692 d 0.01622380 p 0.07035593 t 0.00611253 worse/reject/report cpu 0.030481
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-x m n r c b i y e l [ ] \     X M N R C B I Y E L { } |
-d t o k j f h v w ; '         D T O K J F H V W : "
-z q a g s p u , . /           Z Q A G S P U < > ?
+b q n r x m s o g y [ ] \     B Q N R X M S O G Y { } |
+v h e t d f u i a ; '         V H E T D F U I A : "
+j z c w p l k , . /           J Z C W P L K < > ?
 ------------------------------------------------------------
-iter     75 effort 5.759482 -> 6.604400 d 0.84491784 p 0.00000000 t 0.00553084 worse/reject cpu 0.027603
+iter     75 effort 1.843468 -> 1.839072 d -0.00439593 p 0.45167007 t 0.00553084 better/accept/report cpu 0.029722
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-x m q r c b e y i l [ ] \     X M Q R C B E Y I L { } |
-d t o s j f h v w ; '         D T O S J F H V W : "
-z n a g k p u , . /           Z N A G K P U < > ?
+b q n r g m s o x y [ ] \     B Q N R G M S O X Y { } |
+v h e t d f u i a ; '         V H E T D F U I A : "
+j z c w p l k , . /           J Z C W P L K < > ?
 ------------------------------------------------------------
-iter     76 effort 5.759482 -> 6.868392 d 1.10891000 p 0.00000000 t 0.00500451 worse/reject cpu 0.027484
+iter     76 effort 1.839072 -> 1.825576 d -0.01349590 p 0.06742462 t 0.00500451 better/accept/report cpu 0.030673
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-x m n r c b e y i l [ ] \     X M N R C B E Y I L { } |
-d t o k j h f v w ; '         D T O K J H F V W : "
-z q a g s p u , . /           Z Q A G S P U < > ?
+b q n r g m s o x y [ ] \     B Q N R G M S O X Y { } |
+v h e d t f u i a ; '         V H E D T F U I A : "
+j z c w p l k , . /           J Z C W P L K < > ?
 ------------------------------------------------------------
-iter     77 effort 5.759482 -> 6.907028 d 1.14754543 p 0.00000000 t 0.00452827 worse/reject cpu 0.027374
+iter     77 effort 1.825576 -> 1.901500 d 0.07592339 p 0.00000005 t 0.00452827 worse/reject/report cpu 0.030238
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-t m n r c b e y i l [ ] \     T M N R C B E Y I L { } |
-d x o s j f h q w ; '         D X O S J F H Q W : "
-z v a g k p u , . /           Z V A G K P U < > ?
+b q n r g m s o x y [ ] \     B Q N R G M S O X Y { } |
+d h e t v f u i a ; '         D H E T V F U I A : "
+j z c w p l k , . /           J Z C W P L K < > ?
 ------------------------------------------------------------
-iter     78 effort 5.759482 -> 8.075526 d 2.31604412 p 0.00000000 t 0.00409735 worse/reject cpu 0.027806
+iter     78 effort 1.825576 -> 1.838911 d 0.01333517 p 0.03859687 t 0.00409735 worse/reject/report cpu 0.029607
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-x m n r q b e y i l [ ] \     X M N R Q B E Y I L { } |
-d t o s j f h v w ; '         D T O S J F H V W : "
-z c a g k p u , . /           Z C A G K P U < > ?
+b q n r g m s o x y [ ] \     B Q N R G M S O X Y { } |
+l h e t d f u i a ; '         L H E T D F U I A : "
+j z c w p v k , . /           J Z C W P V K < > ?
 ------------------------------------------------------------
-iter     79 effort 5.759482 -> 6.016934 d 0.25745124 p 0.00000000 t 0.00370744 worse/reject cpu 0.027068
+iter     79 effort 1.825576 -> 1.787557 d -0.03801883 p 0.00003519 t 0.00370744 better/accept/report cpu 0.029629
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-x m n r c d e y i l [ ] \     X M N R C D E Y I L { } |
-b t o s j f h v w ; '         B T O S J F H V W : "
-z q a g k p u , . /           Z Q A G K P U < > ?
+j q n r g m s b x y [ ] \     J Q N R G M S B X Y { } |
+l h e t d f u i a ; '         L H E T D F U I A : "
+o z c w p v k , . /           O Z C W P V K < > ?
 ------------------------------------------------------------
-iter     80 effort 5.759482 -> 6.117599 d 0.35811650 p 0.00000000 t 0.00335463 worse/reject cpu 0.027628
+iter     80 effort 1.787557 -> 2.172470 d 0.38491234 p 0.00000000 t 0.00335463 worse/reject/report cpu 0.031608
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-x m n r c b e y i l [ ] \     X M N R C B E Y I L { } |
-d t o s j f w v h ; '         D T O S J F W V H : "
-z q a g k p u , . /           Z Q A G K P U < > ?
+b q n r t m s o x y [ ] \     B Q N R T M S O X Y { } |
+l h e g d f u i a ; '         L H E G D F U I A : "
+j z c w k v p , . /           J Z C W K V P < > ?
 ------------------------------------------------------------
-iter     81 effort 5.759482 -> 5.803866 d 0.04438396 p 0.00000045 t 0.00303539 worse/reject cpu 0.027412
+iter     81 effort 1.787557 -> 1.935057 d 0.14749975 p 0.00000000 t 0.00303539 worse/reject/report cpu 0.030997
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-x m n r z b e y i l [ ] \     X M N R Z B E Y I L { } |
-d t o s j f h v w ; '         D T O S J F H V W : "
-c q a g k p u , . /           C Q A G K P U < > ?
+b i n r g m s o x y [ ] \     B I N R G M S O X Y { } |
+l h e t d f u a q ; '         L H E T D F U A Q : "
+j z c w p v k , . /           J Z C W P V K < > ?
 ------------------------------------------------------------
-iter     82 effort 5.759482 -> 6.226582 d 0.46709929 p 0.00000000 t 0.00274654 worse/reject cpu 0.027516
+iter     82 effort 1.787557 -> 2.031531 d 0.24397329 p 0.00000000 t 0.00274654 worse/reject/report cpu 0.03021
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-x m f r c b e y i l [ ] \     X M F R C B E Y I L { } |
-d t o s j n h v w ; '         D T O S J N H V W : "
-z q a g k p u , . /           Z Q A G K P U < > ?
+b q n r g l s o x y [ ] \     B Q N R G L S O X Y { } |
+m h e t d w u i a ; '         M H E T D W U I A : "
+j z c f p v k , . /           J Z C F P V K < > ?
 ------------------------------------------------------------
-iter     83 effort 5.759482 -> 5.900453 d 0.14097114 p 0.00000000 t 0.00248517 worse/reject cpu 0.027237
+iter     83 effort 1.787557 -> 1.793854 d 0.00629624 p 0.07937847 t 0.00248517 worse/reject/report cpu 0.029926
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-x m n r c b e y i k [ ] \     X M N R C B E Y I K { } |
-d t o s j f a v w ; '         D T O S J F A V W : "
-z q h g l p u , . /           Z Q H G L P U < > ?
+b q n r g m s o x y [ ] \     B Q N R G M S O X Y { } |
+l k e t d f u i a ; '         L K E T D F U I A : "
+j z c w p v h , . /           J Z C W P V H < > ?
 ------------------------------------------------------------
-iter     84 effort 5.759482 -> 5.404921 d -0.35456177 p 0.00000000 t 0.00224867 better/accept cpu 0.028589
+iter     84 effort 1.787557 -> 1.910335 d 0.12277770 p 0.00000000 t 0.00224867 worse/reject/report cpu 0.02996
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-x m n r c b a y i k [ ] \     X M N R C B A Y I K { } |
-d t o s j f e q w ; '         D T O S J F E Q W : "
-z v h g l p u , . /           Z V H G L P U < > ?
+b x n r k m s o q y [ ] \     B X N R K M S O Q Y { } |
+l h e t d f u i a ; '         L H E T D F U I A : "
+j z c w p v g , . /           J Z C W P V G < > ?
 ------------------------------------------------------------
-iter     85 effort 5.404921 -> 5.321964 d -0.08295692 p 0.00000000 t 0.00203468 better/accept cpu 0.02788
+iter     85 effort 1.787557 -> 1.805729 d 0.01817203 p 0.00013221 t 0.00203468 worse/reject/report cpu 0.029313
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-x m n r c b a y i k [ ] \     X M N R C B A Y I K { } |
-d t u s j f e q w ; '         D T U S J F E Q W : "
-z v h g l p o , . /           Z V H G L P O < > ?
+b q n r g t s o x y [ ] \     B Q N R G T S O X Y { } |
+i h e m d f u l a ; '         I H E M D F U L A : "
+j z c w p v k , . /           J Z C W P V K < > ?
 ------------------------------------------------------------
-iter     86 effort 5.321964 -> 5.894043 d 0.57207972 p 0.00000000 t 0.00184106 worse/reject cpu 0.028071
+iter     86 effort 1.787557 -> 2.063079 d 0.27552131 p 0.00000000 t 0.00184106 worse/reject/report cpu 0.030747
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-x m n r c b a y i e [ ] \     X M N R C B A Y I E { } |
-d t o s j f k q w ; '         D T O S J F K Q W : "
-z g h v l p u , . /           Z G H V L P U < > ?
+b q n r g m s o y l [ ] \     B Q N R G M S O Y L { } |
+x h e t d f u i a ; '         X H E T D F U I A : "
+j z c w p v k , . /           J Z C W P V K < > ?
 ------------------------------------------------------------
-iter     87 effort 5.321964 -> 7.711825 d 2.38986183 p 0.00000000 t 0.00166586 worse/reject cpu 0.027332
+iter     87 effort 1.787557 -> 1.871255 d 0.08369712 p 0.00000000 t 0.00166586 worse/reject/report cpu 0.03184
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-x m n r c b a y i k [ ] \     X M N R C B A Y I K { } |
-d t o s j f e q w ; '         D T O S J F E Q W : "
-z u h v l p g , . /           Z U H V L P G < > ?
+b q n r g m s o x y [ ] \     B Q N R G M S O X Y { } |
+l h e t k f u i a ; '         L H E T K F U I A : "
+j z c w p v d , . /           J Z C W P V D < > ?
 ------------------------------------------------------------
-iter     88 effort 5.321964 -> 5.541597 d 0.21963322 p 0.00000000 t 0.00150733 worse/reject cpu 0.027776
+iter     88 effort 1.787557 -> 1.843902 d 0.05634501 p 0.00000000 t 0.00150733 worse/reject/report cpu 0.029195
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-x m n k c b a y i o [ ] \     X M N K C B A Y I O { } |
-d t r s j f e q w ; '         D T R S J F E Q W : "
-z v h g l p u , . /           Z V H G L P U < > ?
+b q n r e m s o x y [ ] \     B Q N R E M S O X Y { } |
+l h g t d f u i a ; '         L H G T D F U I A : "
+j z c w p v k , . /           J Z C W P V K < > ?
 ------------------------------------------------------------
-iter     89 effort 5.321964 -> 6.443236 d 1.12127220 p 0.00000000 t 0.00136389 worse/reject cpu 0.027539
+iter     89 effort 1.787557 -> 2.126301 d 0.33874379 p 0.00000000 t 0.00136389 worse/reject/report cpu 0.031247
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-x c n r m b a y v k [ ] \     X C N R M B A Y V K { } |
-d t o s j f e q w ; '         D T O S J F E Q W : "
-z i h g l p u , . /           Z I H G L P U < > ?
+r q n b g m s o x y [ ] \     R Q N B G M S O X Y { } |
+l h e t d f u i a ; '         L H E T D F U I A : "
+j p c w z v k , . /           J P C W Z V K < > ?
 ------------------------------------------------------------
-iter     90 effort 5.321964 -> 6.334910 d 1.01294620 p 0.00000000 t 0.00123410 worse/reject cpu 0.027875
+iter     90 effort 1.787557 -> 1.929985 d 0.14242725 p 0.00000000 t 0.00123410 worse/reject/report cpu 0.030056
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-x m n r c b a y f k [ ] \     X M N R C B A Y F K { } |
-d t s o j i e q w ; '         D T S O J I E Q W : "
-z v h g l p u , . /           Z V H G L P U < > ?
+b q n r g m s o x y [ ] \     B Q N R G M S O X Y { } |
+l h e w d f u i a ; '         L H E W D F U I A : "
+j z c t p v k , . /           J Z C T P V K < > ?
 ------------------------------------------------------------
-iter     91 effort 5.321964 -> 5.251792 d -0.07017134 p 0.00000000 t 0.00111666 better/accept cpu 0.027814
+iter     91 effort 1.787557 -> 2.059980 d 0.27242294 p 0.00000000 t 0.00111666 worse/reject/report cpu 0.030199
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-x m n b c r a y f k [ ] \     X M N B C R A Y F K { } |
-s t d o j i e q w ; '         S T D O J I E Q W : "
-z v h g l p u , . /           Z V H G L P U < > ?
+b q n r g m s x o y [ ] \     B Q N R G M S X O Y { } |
+l h e a d f u i t ; '         L H E A D F U I T : "
+j z c w p v k , . /           J Z C W P V K < > ?
 ------------------------------------------------------------
-iter     92 effort 5.251792 -> 5.498649 d 0.24685640 p 0.00000000 t 0.00101039 worse/reject cpu 0.02783
+iter     92 effort 1.787557 -> 1.922747 d 0.13518963 p 0.00000000 t 0.00101039 worse/reject/report cpu 0.029771
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-x m n r c b a y f k [ ] \     X M N R C B A Y F K { } |
-d j s o t i e q w ; '         D J S O T I E Q W : "
-z v h g l p u , . /           Z V H G L P U < > ?
+b q n r g m s o x p [ ] \     B Q N R G M S O X P { } |
+l h e t d f u i a ; '         L H E T D F U I A : "
+j z c w y v k , . /           J Z C W Y V K < > ?
 ------------------------------------------------------------
-iter     93 effort 5.251792 -> 6.045346 d 0.79355369 p 0.00000000 t 0.00091424 worse/reject cpu 0.028435
+iter     93 effort 1.787557 -> 1.790036 d 0.00247831 p 0.06648472 t 0.00091424 worse/reject/report cpu 0.028866
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-x m n r c b a y f k [ ] \     X M N R C B A Y F K { } |
-d t s o j i p q w ; '         D T S O J I P Q W : "
-z v h g l e u , . /           Z V H G L E U < > ?
+b q n r g w s o x y [ ] \     B Q N R G W S O X Y { } |
+l h d t e f u i a ; '         L H D T E F U I A : "
+j z c m p v k , . /           J Z C M P V K < > ?
 ------------------------------------------------------------
-iter     94 effort 5.251792 -> 6.220856 d 0.96906379 p 0.00000000 t 0.00082724 worse/reject cpu 0.027642
+iter     94 effort 1.787557 -> 1.981490 d 0.19393234 p 0.00000000 t 0.00082724 worse/reject/report cpu 0.029569
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-x m q r c b a y f k [ ] \     X M Q R C B A Y F K { } |
-d t s o j i e n w ; '         D T S O J I E N W : "
-z v h g l u p , . /           Z V H G L U P < > ?
+b q n r g m s o x y [ ] \     B Q N R G M S O X Y { } |
+z h e t d f u i a ; '         Z H E T D F U I A : "
+j l c w p v k , . /           J L C W P V K < > ?
 ------------------------------------------------------------
-iter     95 effort 5.251792 -> 5.032266 d -0.21952662 p 0.00000000 t 0.00074852 better/accept cpu 0.029043
+iter     95 effort 1.787557 -> 1.908911 d 0.12135309 p 0.00000000 t 0.00074852 worse/reject/report cpu 0.028977
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-x m q r c b a y f k [ ] \     X M Q R C B A Y F K { } |
-d t s o j i e n w ; '         D T S O J I E N W : "
-z v l g h u p , . /           Z V L G H U P < > ?
+b q n r g m s o x u [ ] \     B Q N R G M S O X U { } |
+l h e t d f y k a ; '         L H E T D F Y K A : "
+j z c w p v i , . /           J Z C W P V I < > ?
 ------------------------------------------------------------
-iter     96 effort 5.032266 -> 4.976344 d -0.05592129 p 0.00000000 t 0.00067729 better/accept cpu 0.027581
+iter     96 effort 1.787557 -> 2.056554 d 0.26899644 p 0.00000000 t 0.00067729 worse/reject/report cpu 0.029533
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-x m q r c b a p g k [ ] \     X M Q R C B A P G K { } |
-d t s o j i e n w ; '         D T S O J I E N W : "
-z v l f h u y , . /           Z V L F H U Y < > ?
+b q n r g m s f x y [ ] \     B Q N R G M S F X Y { } |
+d h e t l o u i a ; '         D H E T L O U I A : "
+j z c w p v k , . /           J Z C W P V K < > ?
 ------------------------------------------------------------
-iter     97 effort 4.976344 -> 5.037977 d 0.06163234 p 0.00000000 t 0.00061283 worse/reject cpu 0.027417
+iter     97 effort 1.787557 -> 1.762297 d -0.02526063 p 0.00000000 t 0.00061283 better/accept/report cpu 0.029893
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-x m q r c b a y f d [ ] \     X M Q R C B A Y F D { } |
-k t s o z i e n w ; '         K T S O Z I E N W : "
-j v l g h u p , . /           J V L G H U P < > ?
+b m n r g q s f x y [ ] \     B M N R G Q S F X Y { } |
+d h e t l o u i a ; '         D H E T L O U I A : "
+j z c w p v k , . /           J Z C W P V K < > ?
 ------------------------------------------------------------
-iter     98 effort 4.976344 -> 5.445298 d 0.46895355 p 0.00000000 t 0.00055452 worse/reject cpu 0.027496
+iter     98 effort 1.762297 -> 1.772995 d 0.01069821 p 0.00000000 t 0.00055452 worse/reject/report cpu 0.029081
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-x m q d c b a y f k [ ] \     X M Q D C B A Y F K { } |
-r t s o j i e n w ; '         R T S O J I E N W : "
-z v h g l u p , . /           Z V H G L U P < > ?
+b q n z g m s f x y [ ] \     B Q N Z G M S F X Y { } |
+d a e t l o u i h ; '         D A E T L O U I H : "
+j r c w p v k , . /           J R C W P V K < > ?
 ------------------------------------------------------------
-iter     99 effort 4.976344 -> 5.042175 d 0.06583089 p 0.00000000 t 0.00050175 worse/reject cpu 0.02734
+iter     99 effort 1.762297 -> 1.921613 d 0.15931633 p 0.00000000 t 0.00050175 worse/reject/report cpu 0.028523
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-x m q r a b c y f k [ ] \     X M Q R A B C Y F K { } |
-d t s o j u e n w ; '         D T S O J U E N W : "
-z v l g h i p , . /           Z V L G H I P < > ?
+b q n r g o s f t y [ ] \     B Q N R G O S F T Y { } |
+d h e x l m u i a ; '         D H E X L M U I A : "
+j z c w p v k , . /           J Z C W P V K < > ?
 ------------------------------------------------------------
-iter    100 effort 4.976344 -> 5.397620 d 0.42127552 p 0.00000000 t 0.00045400 worse/reject cpu 0.028578
+iter    100 effort 1.762297 -> 2.168257 d 0.40596022 p 0.00000000 t 0.00045400 worse/reject/report cpu 0.029186
 ------------------------------------------------------------
 ` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
-x m q r c b a y f k [ ] \     X M Q R C B A Y F K { } |
-d t s o j i e n w ; '         D T S O J I E N W : "
-z v l g h u p , . /           Z V L G H U P < > ?
+b q n r g m s f x y [ ] \     B Q N R G M S F X Y { } |
+d h e t l o u i a ; '         D H E T L O U I A : "
+j z c w p v k , . /           J Z C W P V K < > ?
 ------------------------------------------------------------
-Total time spent optimizing: 3.130113 s
+Total time spent optimizing: 3.540359 s
+------------------------------------------------------------
+` 1 2 3 4 5 6 7 8 9 0 - =     ~ ! @ # $ % ^ & * ( ) _ +
+b q n r g m s f x y [ ] \     B Q N R G M S F X Y { } |
+d h e t l o u i a ; '         D H E T L O U I A : "
+j z c w p v k , . /           J Z C W P V K < > ?
+------------------------------------------------------------
 Keyboard effort
 ------------------------------------------------------------
-k1                      1.572 26.6  26.6
-k1,k2                   2.562 16.7  43.3
-k1,k2,k3                2.956  6.7  49.9
-k1,k2,k3,w(h)           2.956  0.0  49.9
-k1,k2,k3,w(h,r)         4.260 22.0  72.0
-k1,k2,k3,w(h,r,f)       6.367 35.6 107.6
-k1,k2,k3,w(h,r,f),k4    5.919 -7.6 100.0
+k1                      1.229  61.9  61.9
+k1,k2                   1.804  29.0  90.9
+k1,k2,k3                1.984   9.1 100.0
+b                       1.003  50.6  50.6
+p                       0.982  49.6 202.1
+ph                      0.000   0.0   0.0
+pr                      0.397  40.4  40.4
+pf                      0.409  41.6  82.1
+s                       0.978  49.4 149.6
+all                     1.980 100.0 100.0
 
-#data effort_k1=>[1.572,26.561,26.561],
-#data effort_k12=>[2.562,16.722,43.283],
-#data effort_k123=>[2.956,6.657,49.939],
-#data effort_wh=>[2.956,0.000,49.939],
-#data effort_whr=>[4.260,22.038,71.977],
-#data effort_whrf=>[6.367,35.594,107.572],
-#data effort_k4=>[5.919,-7.572,100.000],
-#data effort_k=>[2.956,49.939,49.939],
-#data effort_w=>[3.411,57.632,107.572],
-#data effort_path=>[-0.448,-7.572,100.000],
+#data effort_k1=>[1.229,61.926,61.926],
+#data effort_k12=>[1.804,29.007,90.933],
+#data effort_k123=>[1.984,9.067,100.000],
+#data effort_base=>[1.003,50.637,50.637],
+#data effort_penalty=>[0.982,49.594,202.102],
+#data effort_penalty_hand=>[0.000,0.000,0.000],
+#data effort_penalty_row=>[0.397,40.431,40.431],
+#data effort_penalty_finger=>[0.409,41.627,82.058],
+#data effort_path=>[0.978,49.395,149.626],
+#data effort_all=>[1.980,100.000,100.000],
