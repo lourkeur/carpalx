@@ -95,6 +95,10 @@ Improved consistency in configuration file.
 
 Added fonts/
 
+=item * 0.12
+
+Can now load a cache file basedon parsed corpus instead of original corpus.
+
 =back
 
 =head1 BUGS
@@ -117,7 +121,7 @@ http://mkweb.bcgsc.ca
 
 ################################################################
 #
-# Copyright 2002-2009 Martin Krzywinski <martink@bcgsc.ca> http://mkweb.bcgsc.ca
+# Copyright 2002-2014 Martin Krzywinski <martink@bcgsc.ca> http://mkweb.bcgsc.ca
 #
 # This file is part of the Genome Sciences Centre Perl code base.
 #
@@ -171,16 +175,12 @@ http://mkweb.bcgsc.ca
 #
 ################################################################
 
-################################################################
-#     Martin Krzywinski <martink@bcgsc.ca> http://mkweb.bcgsc.ca
-#                                                      2004-2009
-################################################################
-
 use strict;
 use Cwd;
 use Config::General;
 use Data::Dumper;
 use File::Basename;
+use File::Spec;
 use FindBin;
 use Getopt::Long;
 use GD;
@@ -188,7 +188,7 @@ use IO::File;
 use Math::VecStat qw(sum min max average);
 use Set::IntSpan;
 use Pod::Usage;
-use Storable qw(dclone);
+use Storable qw(store retrieve dclone);
 use Digest::MD5 qw(md5_hex);
 use Time::HiRes qw(gettimeofday tv_interval);
 use lib "$FindBin::RealBin";
@@ -197,28 +197,31 @@ use lib "$FindBin::RealBin/lib";
 use vars qw(%OPT %CONF);
 
 GetOptions(\%OPT,
-	   "keyboard_input=s",
-	   "keyboard_output=s",
-	   "action=s",
-	   "corpus=s",
-	   "words=s",
-	   "wordlength=s",
-	   "mode=s",
-	   "triads_max_num=i",
-	   "triads_overlap",
-	   "configfile=s","help","man","debug+");
+					 "keyboard_input=s",
+					 "keyboard_output=s",
+					 "action=s",
+					 "corpus=s",
+					 "words=s",
+					 "wordlength=s",
+					 "detail",
+					 "mode=s",
+					 "triads_max_num=i",
+					 "triads_overlap",
+					 "cdump",
+					 "configfile=s","help","man","debug+");
 
 pod2usage() if $OPT{help};
 pod2usage(-verbose=>2) if $OPT{man};
 loadconfiguration($OPT{configfile});
 populateconfiguration(); # copy command line options to config hash
 validateconfiguration(); 
-if($CONF{debug} > 1) {
+if($CONF{cdump}) {
   $Data::Dumper::Pad = "debug parameters";
   $Data::Dumper::Indent = 1;
   $Data::Dumper::Quotekeys = 0;
   $Data::Dumper::Terse = 1;
   print Dumper(\%CONF);
+	exit;
 }
 
 my @actions = split(/,/,$CONF{action});
@@ -300,6 +303,7 @@ sub report_keyboard_effort {
 
   my %effort;
   $effort{all}       = calculate_effort($keytriads,$keyboard);
+
   my %CONF_prev      = dclone(\%CONF);
 
   # recall triad effort is 
@@ -351,7 +355,7 @@ sub report_keyboard_effort {
     local $CONF{effort_model}{k_param}{kb}                             = 0;
     local $CONF{effort_model}{k_param}{ks}                             = 0;
     local $CONF{effort_model}{weight_param}{penalties}{default}        = 0;
-    local $CONF{effort_model}{weight_param}{penalties}{weight}{hand}    = 0;
+    local $CONF{effort_model}{weight_param}{penalties}{weight}{hand}   = 0;
     local $CONF{effort_model}{weight_param}{penalties}{weight}{finger} = 0;
     my $keyboard_new = create_keyboard($CONF{keyboard_input});
     $effort{penalty_row}= calculate_effort($keytriads,$keyboard_new);
@@ -472,47 +476,51 @@ sub report_keyboard_effort {
   histogram($stats->{finger},"keyboard finger frequency","finger");
 
   my $charlist = read_document($CONF{corpus},{charlist=>1});
-
   my $runlength;
-  for my $i (0..@$charlist-1) {
-    $stats->{charfreq}{$charlist->[$i]}++;
-    if($i==0) {
-      $runlength->{rowjump} = 1;
-      $runlength->{finger}  = 1;
-      $runlength->{hand}    = 1;
-      $runlength->{row}     = 1;
-    } else {
-      if ($keyboard->{map}{$charlist->[$i]}{hand} == $keyboard->{map}{$charlist->[$i-1]}{hand} &&
-	  $keyboard->{map}{$charlist->[$i]}{row} != $keyboard->{map}{$charlist->[$i-1]}{row}) {
-	$runlength->{rowjump} += abs($keyboard->{map}{$charlist->[$i]}{row} - 
-				     $keyboard->{map}{$charlist->[$i-1]}{row});
-      } else {
-	$stats->{run}{rowjump}{$runlength->{rowjump}}++;
-	$runlength->{rowjump} = 1;
-      }
-      if($i == @$charlist-1) {
-	$stats->{run}{rowjump}{$runlength->{rowjump}}++;
-      }
-      for my $runtype (qw(finger hand row)) {
-	my $cv  = $keyboard->{map}{$charlist->[$i]}{$runtype};
-	my $cvp = $keyboard->{map}{$charlist->[$i-1]}{$runtype};
-	if ($cv == $cvp) {
-	  $runlength->{$runtype}++;
-	} else {
-	  $stats->{run}{$runtype}{all}{ $runlength->{$runtype} }++;
-	  if($runtype ne "finger") {
-	    $stats->{run}{$runtype}{ $cvp }{ $runlength->{$runtype} }++;
-	  }
-	  $runlength->{$runtype} = 1;
+
+	printdebug(1,"calculating runs");
+	for my $i (0..@$charlist-1) {
+		$stats->{charfreq}{$charlist->[$i]}++;
+		if($i==0) {
+			$runlength->{rowjump} = 1;
+			$runlength->{finger}  = 1;
+			$runlength->{hand}    = 1;
+			$runlength->{row}     = 1;
+		} else {
+			$stats->{charpairfreq}{ $charlist->[$i-1] . $charlist->[$i] }++;
+			my $h1 = $keyboard->{map}{$charlist->[$i]}{hand};
+			my $h2 = $keyboard->{map}{$charlist->[$i-1]}{hand};
+			my $r1 = $keyboard->{map}{$charlist->[$i]}{row};
+			my $r2 = $keyboard->{map}{$charlist->[$i-1]}{row};
+			if ($h1 == $h2 && $r1 != $r2) {
+				$runlength->{rowjump} += abs($r1-$r2);
+			} else {
+				$stats->{run}{rowjump}{$runlength->{rowjump}}++;
+				$runlength->{rowjump} = 1;
+			}
+			if($i == @$charlist-1) {
+				$stats->{run}{rowjump}{$runlength->{rowjump}}++;
+			}
+			for my $runtype (qw(finger hand row)) {
+				my $cv  = $keyboard->{map}{$charlist->[$i]}{$runtype};
+				my $cvp = $keyboard->{map}{$charlist->[$i-1]}{$runtype};
+				if ($cv == $cvp) {
+					$runlength->{$runtype}++;
+					} else {
+						$stats->{run}{$runtype}{all}{ $runlength->{$runtype} }++;
+						if($runtype ne "finger") {
+							$stats->{run}{$runtype}{ $cvp }{ $runlength->{$runtype} }++;
+						}
+						$runlength->{$runtype} = 1;
+					}
+				if($i == @$charlist-1) {
+					$stats->{run}{$runtype}{all}{ $runlength->{$runtype} }++;
+					$stats->{run}{$runtype}{ $cvp }{ $runlength->{$runtype} }++ if $runtype ne "finger";
+				}
+			}
+		}
 	}
-	if($i == @$charlist-1) {
-	  $stats->{run}{$runtype}{all}{ $runlength->{$runtype} }++;
-	  $stats->{run}{$runtype}{ $cvp }{ $runlength->{$runtype} }++ if $runtype ne "finger";
-	}
-      }
-    }
-  }
-  histogram($stats->{run}{hand}{0},"keyboard left hand run length","left_hand_run");
+	histogram($stats->{run}{hand}{0},"keyboard left hand run length","left_hand_run");
   histogram($stats->{run}{hand}{1},"keyboard right hand run length","right_hand_run");
   histogram($stats->{run}{hand}{all},"keyboard hand run length","all_hand_run");
   histogram($stats->{run}{row}{1},"keyboard top row run length","t_row_run");
@@ -522,6 +530,7 @@ sub report_keyboard_effort {
   histogram($stats->{run}{finger}{all},"keyboard finger run length","finger_run");
   histogram($stats->{run}{rowjump},"keyboard same-hand row jump length","row_jump");
   histogram($stats->{charfreq},"corpus character frequency","character_frequency","value");
+  histogram($stats->{charpairfreq},"corpus character pair frequency","character_pair_frequency","value");
 }
 
 sub sdiv {
@@ -606,7 +615,8 @@ sub report_triads {
 
 sub resolve_path {
   my $file = shift;
-  if($file =~ /^\//) {
+	my $is_absolute = File::Spec->file_name_is_absolute( $file );
+  if($is_absolute) {
     return $file;
   } else {
     return "$CONF{configdir}/$file";
@@ -615,7 +625,7 @@ sub resolve_path {
 
 sub report_word_effort {
     my $keyboard = shift;
-    open(WORDS, $CONF{words} =~ /^\// ? $CONF{words} : $FindBin::RealBin . "/$CONF{words}");
+    open(WORDS, $CONF{words} =~ /^\// ? $CONF{words} : $FindBin::RealBin . "/$CONF{words}") || die "cannot open word list file $CONF{words}";
     my @words = <WORDS>;
     chomp @words;
     close(WORDS);
@@ -623,7 +633,7 @@ sub report_word_effort {
       my $length = Set::IntSpan->new($CONF{wordlength});
       @words = grep($length->member(length($_)), @words);
     }
-    @words = grep(/^\w+$/,@words);
+    #@words = grep($_ =~ /^[a-z]+$/, map { lc $_ } @words);
     my $wordeffort = rankwords(\@words,$keyboard);
     summarizerankwords($wordeffort);
 }
@@ -665,6 +675,11 @@ sub summarizerankwords {
   my $topN = 25;
   # top 10
   my @sorted       = (sort {$wordeffort->{$b} <=> $wordeffort->{$a}} keys %$wordeffort);
+  if($CONF{detail}) {
+    for my $word (keys %$wordeffort) {
+      printinfo("wordeffort",$word,$wordeffort->{$word});
+    }
+  }
   my @top10hardest = @sorted[0..$topN-1];
   my @top10easiest = @sorted[@sorted-1-$topN..@sorted-1];
   printinfo("wordreport","top $topN hardest",join(" ",map {sprintf ("%s:%4.1f",$_,$wordeffort->{$_})} @top10hardest));
@@ -736,6 +751,7 @@ sub optimize_keyboard {
     } else {
       $keyboardnew     = _swap_keys($keyboard,$reloc_list,$swap_num);
     }
+    # this is breaking???
     my $effortnew       = calculate_effort($keytriads,$keyboardnew);
     my $deffort         = $effortnew - $effort;
     my %report;
@@ -993,12 +1009,17 @@ sub calculate_effort {
   my $contributing_triads = 0;
   my @k = @{$CONF{effort_model}{k_param}}{qw(k1 k2 k3 kb kp ks)};
   foreach my $triad (keys %$keytriads) {
-    my $triad_effort = calculate_triad_effort($triad,$keyboard,@k);
-    my $num_triads   = $keytriads->{$triad};
-    $totaleffort     += $triad_effort * $num_triads ;
+    my $triad_effort     = calculate_triad_effort($triad,$keyboard,@k);
+    my $num_triads       = $keytriads->{$triad};
+    $totaleffort         += $triad_effort * $num_triads ;
     $contributing_triads += $num_triads;
+    if($triad =~ /[*]/) {
+      #printinfo("calculate_effort",$triad,$num_triads,$triad_effort,$totaleffort,$contributing_triads);
+    }
   }
   $totaleffort /= $contributing_triads;
+  #printinfo("calculate_effort_done",$totaleffort);
+  #printinfo("*"x80);
   return $totaleffort;
 }
 
@@ -1031,10 +1052,8 @@ sub calculate_effort {
     my $triad_effort       = $kb * $k1*$be1 * ( 1 + $k2*$be2 * ( 1 + $k3*$be3 ) ) + $kp * $k1*$pe1 * ( 1 + $k2*$pe2 * ( 1 + $k3*$pe3 ) );
     
     if ($ks) {
-
       # hand, finger, row flags for stroke path
       # see http://mkweb.bcgsc.ca/carpalx/?typing_effort
-
       my $hand_flag;
       if($h1 == $h3) {
 	if($h2 == $h3) {
@@ -1424,15 +1443,27 @@ sub read_document {
   my $file = shift;
   my $args = shift || {};
   $file = resolve_path($file);
-  
+	
   die "cannot find input document [$file]" unless -e $file;
   die "no permission to read input document [$file]" unless -r $file;
-  
+	
   my $keytriads;
   my $triads_count=0;
-  
+
+	################################################################
+	# read from corpus caches, if available
+	my $file_cache       = "$file.cache";
+	my $file_cache_chars = "$file.chars.cache";
+	if(-e $file_cache && ! $args->{charlist}) {
+		printdebug(1,"reading triads from cache",$file_cache);
+		return retrieve($file_cache);
+	} elsif (-e $file_cache_chars && $args->{charlist}) {
+		printdebug(1,"reading character list from cache",$file_cache_chars);
+		return retrieve($file_cache_chars);
+	}
+
   open(INPUT,$file) || die "cannot open input document [$file]";
-  
+
   my $charlist;
 
  READLINE: while(my $line = <INPUT>) {
@@ -1453,52 +1484,51 @@ sub read_document {
     if($CONF{mode_def}{$CONF{mode}}{reject_line_rx}) {
       (my $rx = $CONF{mode_def}{$CONF{mode}}{reject_line_rx}) =~ s/\/\//\//g;
       if($line =~ /$rx/) {
-	printdebug(2,"read_document","skipping line",$line);
-	next READLINE;
+				printdebug(2,"read_document","skipping line",$line);
+				next READLINE;
       }
     }
     if($CONF{mode_def}{$CONF{mode}}{accept_line_rx}) {
       (my $rx = $CONF{mode_def}{$CONF{mode}}{accept_line_rx}) =~ s/\/\//\//g;
       if($line !~ /$rx/) {
-	printdebug(2,"read_document","skipping line",$line);
-	next READLINE;
+				printdebug(2,"read_document","skipping line",$line);
+				next READLINE;
       }
     }
     printdebug(2,"read_document","processed", $line);
 
-    if($args->{charlist}) {
-      while($line =~ /(.)/g) {
-	push @$charlist, $1;
-      }
-    } else {
-      while($line =~ /(...)/g) {
-	my $triad = $1;
-	if(substr($triad,0,1) eq substr($triad,1,1) && 
-	   substr($triad,1,1) eq substr($triad,2,1) && 
-	   ! $CONF{mode_def}{$CONF{mode}}{accept_repeats}) {
-	  # identical triplet - skip if requested 
-	  printdebug(3,"skipping repeated triad $triad");
-	} else {
-	  $keytriads->{$triad}++;
-	  $triads_count++;
-	  printdebug(3,"accepting $triad");
-	  if($CONF{triads_max_num} && $triads_count >= $CONF{triads_max_num}) {
-	    $CONF{debug} && printdebug(1,"limiting triads to $CONF{triads_max_num}");
-	    last READLINE;
-	  }
-	}
-	pos $line -= 2 if $CONF{triads_overlap};
-      }
-    }
+		push @$charlist, split("",$line);
+
+		if($args->{charlist} && $CONF{charlist_max_length} && @$charlist > $CONF{charlist_max_length}) {
+			return $charlist;
+		}
+
+		while($line =~ /(...)/g) {
+			my $triad = $1;
+			if(substr($triad,0,1) eq substr($triad,1,1) && 
+				 substr($triad,1,1) eq substr($triad,2,1) && 
+				 ! $CONF{mode_def}{$CONF{mode}}{accept_repeats}) {
+				# identical triplet - skip if requested 
+				printdebug(3,"skipping repeated triad $triad");
+			} else {
+				$keytriads->{$triad}++;
+				$triads_count++;
+				printdebug(3,"accepting $triad");
+				if($CONF{triads_max_num} && $triads_count >= $CONF{triads_max_num}) {
+					$CONF{debug} && printdebug(1,"limiting triads to $CONF{triads_max_num}");
+					last READLINE;
+				}
+			}
+			pos $line -= 2 if $CONF{triads_overlap};
+		}
   }
-  return $charlist if $args->{charlist};
   printdebug(1,"found $triads_count triads (",int(keys %$keytriads),"unique)");
   # remove low-frequency triads
   if($CONF{triads_min_freq}) {
     for my $triad (keys %$keytriads) {
       if($keytriads->{$triad} < $CONF{triads_min_freq}) {
-	$CONF{debug} && printdebug(1,"removing rare triad",$triad,"freq",$keytriads->{$triad});
-	delete $keytriads->{$triad};
+				$CONF{debug} && printdebug(1,"removing rare triad",$triad,"freq",$keytriads->{$triad});
+				delete $keytriads->{$triad};
       }
     }
   }
@@ -1512,6 +1542,12 @@ sub read_document {
       delete $keytriads->{$triad_to_del};
     }
   }
+  printdebug(1,"writing triads to cache",$file_cache);
+	store($keytriads,$file_cache);
+
+	# process the character list to create a frequency table of
+	# characters and character transitions
+	store($charlist,$file_cache_chars);
   return $keytriads;
 }
 
