@@ -1256,9 +1256,9 @@ sub draw_keyboard {
     my $keyy = ($row+1)*$keymargin+$row*$keysize;
     foreach my $col (0..@{$keyboard->{key}[$row]}-1) {
       my @key_x0 = (0,
-		    1.5*$keysize+$keymargin,
-		    2*$keysize+$keymargin,
-		    2*($keysize+$keymargin)+0.25*$keysize,
+		    $keysize+$keymargin,
+		    $keysize+$keymargin,
+		    $keysize+$keymargin,
 		   );
       my $key_x = (1+$col)*$keymargin + $keysize*($col) + $key_x0[$row];
       my $cost = $keyboard->{key}[$row][$col]->{effort}{total};
